@@ -1,0 +1,10 @@
+#ifndef CALIBRATOR_H
+#define CALIBRATOR_H
+
+class Calibrator
+{
+public:
+	Calibrator();
+};
+
+#endif // CALIBRATOR_H
