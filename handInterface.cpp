@@ -1,4 +1,4 @@
-#include "handinterface.h"
+#include "handInterface.h"
 
 HandInterface::HandInterface()
 {

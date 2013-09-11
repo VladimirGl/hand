@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += serialport \
+	core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,7 +15,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainWindow.cpp \
-    glove.cpp \
+	glove.cpp \
     hand.cpp \
     gloveInterface.cpp \
     user.cpp \
@@ -33,6 +34,7 @@ HEADERS  += mainWindow.h \
     calibrator.h \
     translator.h \
     shadowGlove.h \
-    handInterface.h
+    handInterface.h \
+    consts.h
 
 FORMS    += mainWindow.ui
