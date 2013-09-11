@@ -19,8 +19,8 @@ public:
 	void setMin(int const& newMin) { minimum = newMin; }
 	void setMax(int const& newMax) { maximum = newMax; }
 
-	void min() const { return minimum; }
-	void max() const { return maximum; }
+	int min() const { return minimum; }
+	int max() const { return maximum; }
 
 private:
 	int minimum;

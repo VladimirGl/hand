@@ -35,6 +35,7 @@ HEADERS  += mainWindow.h \
     translator.h \
     shadowGlove.h \
     handInterface.h \
-    consts.h
+    consts.h \
+    degreeOfFreedom.h
 
 FORMS    += mainWindow.ui
