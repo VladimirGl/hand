@@ -1,10 +1,19 @@
 #ifndef SHADOWGLOVE_H
 #define SHADOWGLOVE_H
 
-class ShadowGlove
+#include "abstractGlove.h"
+
+// после AbstractGlove нужно делать.
+
+class Action;
+
+class ShadowGlove : public AbstractGlove
 {
 public:
 	ShadowGlove();
+
+private:
+	Action action;
 };
 
 #endif // SHADOWGLOVE_H
