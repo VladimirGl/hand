@@ -12,19 +12,19 @@ class DegreeOfFreedom
 {
 public:
 	DegreeOfFreedom(int newMin, int newMax) :
-		minimum(newMin),
-		maximum(newMax)
+		mMinimum(newMin),
+		mMaximum(newMax)
 	{}
 
-	void setMin(int const& newMin) { minimum = newMin; }
-	void setMax(int const& newMax) { maximum = newMax; }
+	void setMin(int const& newMin) { mMinimum = newMin; }
+	void setMax(int const& newMax) { mMaximum = newMax; }
 
-	int min() const { return minimum; }
-	int max() const { return maximum; }
+	int min() const { return mMinimum; }
+	int max() const { return mMaximum; }
 
 private:
-	int minimum;
-	int maximum;
+	int mMinimum;
+	int mMaximum;
 };
 
 #endif // DEGREEOFFREEDOM_H

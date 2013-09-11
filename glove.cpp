@@ -12,7 +12,7 @@
 Glove::Glove()
 {
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
-		lastData.prepend(0);
+		mLastData.prepend(0);
 	}
 
 	setPortSettings();
@@ -20,11 +20,11 @@ Glove::Glove()
 
 Glove::~Glove()
 {
-	if (port->isOpen()) {
+	if (mPort->isOpen()) {
 		stopSendingData();
 	}
 
-	delete port;
+	delete mPort;
 }
 
 void Glove::connectHardwareGlove()
@@ -34,40 +34,40 @@ void Glove::connectHardwareGlove()
 
 void Glove::startSendingData()
 {
-	port->open(QIODevice::ReadOnly);
+	mPort->open(QIODevice::ReadOnly);
 
-	QObject::connect(port, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
 void Glove::stopSendingData()
 {
-	QObject::disconnect(port, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+	QObject::disconnect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-	port->close();
+	mPort->close();
 }
 
 bool Glove::isDataSending()
 {
-	return port->isOpen();
+	return mPort->isOpen();
 }
 
 bool Glove::isPortSet()
 {
-	return port->portName().isEmpty();
+	return mPort->portName().isEmpty();
 }
 
 QList<int> *Glove::data()
 {
-	return &lastData;
+	return &mLastData;
 }
 
 void Glove::onReadyRead()
 {
-	if (!port->bytesAvailable()) {
+	if (!mPort->bytesAvailable()) {
 		return;
 	}
 
-	bytes = port->readAll();
+	mBytes = mPort->readAll();
 
 	if (!hasHeader()) {
 		return;
@@ -84,7 +84,7 @@ bool Glove::hasHeader() const
 	} head;
 
 	for (int i = 0; i < 4; i++) {
-		head.chars[i] = bytes[i];
+		head.chars[i] = mBytes[i];
 	}
 
 	return ((int)head.header == GloveConsts::header);
@@ -98,21 +98,21 @@ void Glove::getDataFromFlexSensors()
 	} fingers;
 
 	for (int i = 4; i < GloveConsts::numberOfSensors * 4 + 4; i++) {
-		fingers.chars[i - 4] = bytes[i];
+		fingers.chars[i - 4] = mBytes[i];
 	}
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
-		lastData[i] = (int)fingers.vals[i];
+		mLastData[i] = (int)fingers.vals[i];
 	}
 }
 
 void Glove::setPortSettings()
 {
-	port = new QSerialPort;
+	mPort = new QSerialPort;
 
-	port->setBaudRate(QSerialPort::Baud115200);
-	port->setDataBits(QSerialPort::Data8);
-	port->setParity(QSerialPort::NoParity);
-	port->setStopBits(QSerialPort::OneStop);
-	port->setFlowControl(QSerialPort::NoFlowControl);
+	mPort->setBaudRate(QSerialPort::Baud115200);
+	mPort->setDataBits(QSerialPort::Data8);
+	mPort->setParity(QSerialPort::NoParity);
+	mPort->setStopBits(QSerialPort::OneStop);
+	mPort->setFlowControl(QSerialPort::NoFlowControl);
 }

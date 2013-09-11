@@ -55,11 +55,11 @@ protected:
 private:
 	void setPortSettings();
 
-	QByteArray bytes;
+	QByteArray mBytes;
 
-	QList<int> lastData;
+	QList<int> mLastData;
 
-	QSerialPort *port;
+	QSerialPort *mPort;
 };
 
 #endif // GLOVE_H
