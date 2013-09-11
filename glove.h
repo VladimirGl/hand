@@ -20,9 +20,11 @@ class Glove : public QObject
 	Q_OBJECT
 public:
 	Glove();
+	~Glove();
 
+	/// Checks COM ports for the connected glove.
+	void connectHardwareGlove();
 
-	void setPortName(QString const& portName);
 	/// Opens port.
 	void startSendingData();
 	/// Closes port.

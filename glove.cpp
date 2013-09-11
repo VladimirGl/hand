@@ -18,9 +18,18 @@ Glove::Glove()
 	setPortSettings();
 }
 
-void Glove::setPortName(const QString &portName)
+Glove::~Glove()
 {
-	port->setPortName(portName);
+	if (port->isOpen()) {
+		stopSendingData();
+	}
+
+	delete port;
+}
+
+void Glove::connectHardwareGlove()
+{
+	// do later.
 }
 
 void Glove::startSendingData()
