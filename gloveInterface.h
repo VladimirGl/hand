@@ -25,8 +25,6 @@ public:
 	/// Returns true if mGlove serial port set.
 	bool isHardwareGloveSet();
 
-	void setGhostGlove();
-
 	/// Calls the appropriate method of the Glove class.
 	void startSendingDatas();
 	/// Calls the appropriate method of the Glove class.

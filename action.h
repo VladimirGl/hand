@@ -2,8 +2,8 @@
 #define ACTION_H
 
 #include <QList>
+#include <QTextStream>
 
-class QTextStream;
 class QString;
 
 class Action
