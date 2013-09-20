@@ -52,9 +52,9 @@ protected:
 	/// Translates data from bytes to integer numbers.
 	void getDataFromFlexSensors();
 
-private:
 	void setPortSettings();
 
+private:
 	QByteArray mBytes;
 
 	QList<int> mLastData;

@@ -53,7 +53,7 @@ bool Glove::isDataSending()
 
 bool Glove::isPortSet()
 {
-	return mPort->portName().isEmpty();
+	return !(mPort->portName().isEmpty());
 }
 
 QList<int> *Glove::data()
@@ -74,6 +74,8 @@ void Glove::onReadyRead()
 	}
 
 	getDataFromFlexSensors();
+
+	emit dataIsRead();
 }
 
 bool Glove::hasHeader() const
