@@ -49,7 +49,7 @@ protected slots:
 protected:
 	/// Returns true if bytes has a valid header.
 	bool hasHeader() const;
-	/// Translates data from bytes to integer numbers.
+	/// Translates data about flex sensors from bytes to integer numbers.
 	void getDataFromFlexSensors();
 
 	void setPortSettings();
