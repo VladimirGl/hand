@@ -47,5 +47,5 @@ void HandInterface::moveMotor(const int &num, const int &value)
 
 QList<int> *HandInterface::motorsDatas()
 {
-	mHand->currentPosition();
+	return mHand->currentPosition();
 }
