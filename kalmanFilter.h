@@ -14,11 +14,11 @@ public:
     KalmanFilter(qreal measuredNoise, qreal enviromentNoise, qreal prevValueFactor,
                  qreal measuredValueFactor);
     /// Setting the original state of data and covariance of process.
-    void SetState(qreal state, qreal covariance);
+    void setState(qreal state, qreal covariance);
     /// Updating and correcting data.
-    void Correct(qreal data);
+    void correct(qreal data);
     /// Return mState.
-    qreal State();
+    qreal state();
 private:
     qreal mPredicateState;
     qreal mPredicateCovaiance;

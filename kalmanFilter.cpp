@@ -9,13 +9,13 @@ KalmanFilter::KalmanFilter(qreal measuredNoise, qreal enviromentNoise,
     mMeasuredValueFactor = measuredValueFactor;
 }
 
-void KalmanFilter::SetState(qreal state, qreal covariance)
+void KalmanFilter::setState(qreal state, qreal covariance)
 {
     mState = state;
     mCovariance = covariance;
 }
 
-void KalmanFilter::Correct(qreal data)
+void KalmanFilter::correct(qreal data)
 {
     //prediction
     mPredicateState = mPrevValueFactor * mState;
@@ -28,7 +28,7 @@ void KalmanFilter::Correct(qreal data)
     mCovariance = (1 - kalmanCoeff * mMeasuredValueFactor) * mPredicateCovaiance;
 }
 
-qreal KalmanFilter::State()
+qreal KalmanFilter::state()
 {
     return mState;
 }
