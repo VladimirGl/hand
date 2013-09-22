@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     calibrator.cpp \
     translator.cpp \
     handInterface.cpp \
-    actionPerfomer.cpp
+	actionPerfomer.cpp \
+    kalmanFilter.cpp
 
 HEADERS  += mainWindow.h \
     glove.h \
@@ -36,6 +37,7 @@ HEADERS  += mainWindow.h \
     handInterface.h \
     consts.h \
     degreeOfFreedom.h \
-    actionPerfomer.h
+	actionPerfomer.h \
+    kalmanFilter.h
 
 FORMS    += mainWindow.ui
