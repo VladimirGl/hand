@@ -12,7 +12,9 @@ const int header = 123456;
 
 namespace HandConsts {
 const int numberOfMotors = 10;
-const int startMotorValue = 180;
+const int motorMinValue = 0;
+const int motorMaxValue = 180;
+const int startMotorValue = motorMaxValue;
 const int header = 789123;
 }
 

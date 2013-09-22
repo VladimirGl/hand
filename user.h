@@ -11,7 +11,7 @@
 * Contains information about glove properties and sensor-motor conformity.
 */
 
-class DegreeOfFreedom;
+#include "degreeOfFreedom.h"
 
 class User
 {
@@ -28,12 +28,15 @@ public:
 	 */
 	QList<int> motorList(int const& sensorNumber) const;
 
+	int sensorMax(int const& num) const;
+	int sensorMin(int const& num) const;
+
 	void fillFreedomListFromFile(QString const& fileName);
 	void fillSensorMotorConformityMapFromFile(QString const& fileName);
 
 private:
-	QList<DegreeOfFreedom> freedomList;
-	QMultiMap<int, int> sensorMotorConformityMap;
+	QList<DegreeOfFreedom> mFreedomList;
+	QMultiMap<int, int> mSensorMotorConformityMap;
 };
 
 #endif // USER_H

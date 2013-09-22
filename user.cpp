@@ -1,7 +1,5 @@
 #include "user.h"
 
-#include "degreeOfFreedom.h"
-
 User::User(const QString &freedomFileName
 		, const QString &conformityFileName)
 {
@@ -11,9 +9,19 @@ User::User(const QString &freedomFileName
 
 QList<int> User::motorList(int const& sensorNumber) const
 {
-	QList<int> values = sensorMotorConformityMap.values(sensorNumber);
+	QList<int> values = mSensorMotorConformityMap.values(sensorNumber);
 
 	return values;
+}
+
+int User::sensorMax(int const& num) const
+{
+	return mFreedomList.at(num).max();
+}
+
+int User::sensorMin(int const& num) const
+{
+	return mFreedomList.at(num).min();
 }
 
 void User::fillFreedomListFromFile(const QString &fileName)

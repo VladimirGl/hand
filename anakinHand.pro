@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     action.cpp \
     calibrator.cpp \
     translator.cpp \
-    handInterface.cpp
+    handInterface.cpp \
+    actionPerfomer.cpp
 
 HEADERS  += mainWindow.h \
     glove.h \
@@ -34,6 +35,7 @@ HEADERS  += mainWindow.h \
     translator.h \
     handInterface.h \
     consts.h \
-    degreeOfFreedom.h
+    degreeOfFreedom.h \
+    actionPerfomer.h
 
 FORMS    += mainWindow.ui

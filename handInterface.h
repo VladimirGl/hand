@@ -32,6 +32,8 @@ public:
 
 	/// Request hardware hand to set servo number num to value.
 	void moveMotor(int const& num, int const& value);
+	/// Request hardware hand to move all motors.
+	void moveMotors(QList<int> const& data);
 	/// Returns last datas from the servos.
 	QList<int> *motorsDatas();
 

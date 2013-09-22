@@ -2,6 +2,8 @@
 
 #include "hand.h"
 
+#include "consts.h"
+
 HandInterface::HandInterface() :
 	mHand(new Hand)
 {
@@ -43,6 +45,13 @@ void HandInterface::stopSendingDatas()
 void HandInterface::moveMotor(const int &num, const int &value)
 {
 	mHand->moveMotor(num, value);
+}
+
+void HandInterface::moveMotors(const QList<int> &data)
+{
+	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
+		mHand->moveMotor(i, data.at(i));
+	}
 }
 
 QList<int> *HandInterface::motorsDatas()
