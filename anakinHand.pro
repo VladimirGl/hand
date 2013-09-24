@@ -15,6 +15,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainWindow.cpp \
+	actionSaver.cpp \
+	actionLoader.cpp \
 	glove.cpp \
     hand.cpp \
     gloveInterface.cpp \
@@ -27,6 +29,9 @@ SOURCES += main.cpp\
     kalmanFilter.cpp
 
 HEADERS  += mainWindow.h \
+	actionSaver.h \
+	actionFileStructure.h \
+	actionLoader.h \
     glove.h \
     hand.h \
     gloveInterface.h \
