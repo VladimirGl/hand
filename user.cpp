@@ -1,11 +1,17 @@
 #include "user.h"
 
-User::User(const QString &freedomFileName
-		, const QString &conformityFileName)
+void User::addDOF(const int &min, const int &max)
 {
-	fillFreedomListFromFile(freedomFileName);
-	fillSensorMotorConformityMapFromFile(conformityFileName);
+	DegreeOfFreedom temp(min, max);
+
+	mFreedomList.append(temp);
 }
+
+void User::addSensorMotorConformity(const int &sensor, const int &motor)
+{
+	mSensorMotorConformityMap.insert(sensor, motor);
+}
+
 
 QList<int> User::motorList(int const& sensorNumber) const
 {
@@ -22,15 +28,5 @@ int User::sensorMax(int const& num) const
 int User::sensorMin(int const& num) const
 {
 	return mFreedomList.at(num).min();
-}
-
-void User::fillFreedomListFromFile(const QString &fileName)
-{
-	// do later
-}
-
-void User::fillSensorMotorConformityMapFromFile(const QString &fileName)
-{
-	// do later
 }
 

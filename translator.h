@@ -17,6 +17,7 @@ enum ConnectionType {
 
 class Translator :  public QObject
 {
+	Q_OBJECT
 public:
 	Translator();
 	~Translator();
@@ -34,7 +35,6 @@ public:
 
 protected slots:
 	void convertData();
-	void sendDataToHand();
 
 protected:
 	void saveConvertedData(QList<int> const& data);
@@ -46,6 +46,8 @@ protected:
 
 	int map(int const& value
 			, int const& min, int const& max);
+
+	void sendDataToHand();
 
 private:
 	ConnectionType mConnectionType;

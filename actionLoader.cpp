@@ -1,14 +1,11 @@
 #include "actionLoader.h"
 
 #include <QStringList>
-#include <QTimer>
 
 ActionLoader::ActionLoader(const QString &fileName) :
 	mIsFileCorrect(true),
 	mIsFileEnd(false)
 {
-	mTimer = new QTimer(this);
-
 	mFile.setFileName(fileName);
 	mFile.open(QFile::ReadOnly | QFile::Truncate);
 
@@ -25,20 +22,6 @@ bool ActionLoader::isFileCorrect()
 bool ActionLoader::isFileEnd()
 {
 	return mIsFileEnd;
-}
-
-void ActionLoader::startSendingData()
-{
-	connect(mTimer, SIGNAL(timeout()), this, SIGNAL(onReadyRead()));
-
-	mTimer->start(mFreq);
-}
-
-void ActionLoader::stopSendingData()
-{
-	disconnect(mTimer, SIGNAL(timeout()), this, SIGNAL(onReadyRead()));
-
-	mTimer->stop();
 }
 
 QList<int> ActionLoader::data()

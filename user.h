@@ -19,8 +19,9 @@ public:
 	User()
 	{}
 
-	User(QString const& freedomFileName
-			, QString const& conformityFileName);
+	void addDOF(const int &min, const int &max);
+	/// Adds new conformity of sensor and motor.
+	void addSensorMotorConformity(const int &sensor, const int &motor);
 
 	/**
 	 * Returns QList of motors, that match sensor with sensurNumber number.
@@ -30,9 +31,6 @@ public:
 
 	int sensorMax(int const& num) const;
 	int sensorMin(int const& num) const;
-
-	void fillFreedomListFromFile(QString const& fileName);
-	void fillSensorMotorConformityMapFromFile(QString const& fileName);
 
 private:
 	QList<DegreeOfFreedom> mFreedomList;

@@ -8,8 +8,6 @@
 #include <QTextStream>
 #include <QList>
 
-class QTimer;
-
 class ActionLoader : public QObject, ActionFileStructure
 {
 	Q_OBJECT
@@ -18,6 +16,8 @@ public:
 
 	bool isFileCorrect();
 	bool isFileEnd();
+
+	int freq() const { return mFreq; }
 
 	void startSendingData();
 	void stopSendingData();
@@ -38,8 +38,6 @@ protected:
 private:
 	QFile mFile;
 	QTextStream mStream;
-
-	QTimer *mTimer;
 
 	bool mIsFileCorrect;
 	bool mIsFileEnd;

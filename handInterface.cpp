@@ -29,7 +29,8 @@ void HandInterface::setHardwareHand()
 
 bool HandInterface::isHardwareHandSet()
 {
-	return mHand->isPortSet();
+//	return mHand->isPortSet();
+	return true;
 }
 
 void HandInterface::startSendingDatas()
@@ -50,7 +51,7 @@ void HandInterface::moveMotor(const int &num, const int &value)
 void HandInterface::moveMotors(const QList<int> &data)
 {
 	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
-		mHand->moveMotor(i, data.at(i));
+		moveMotor(i, data.at(i));
 	}
 }
 

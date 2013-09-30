@@ -51,11 +51,11 @@ void Translator::startConnection()
 		return;
 	}
 	case gloveToHand: {
-		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(update()));
+		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
 		break;
 	}
 	case actionToHand: {
-		connect(mActionsPerfomer, SIGNAL(commandIsSend()), this, SLOT(update()));
+		connect(mActionsPerfomer, SIGNAL(commandIsSend()), this, SLOT(convertData()));
 		break;
 	}
 	}
