@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     handInterface.cpp \
 	actionPerfomer.cpp \
     kalmanFilter.cpp \
-    userFileSaver.cpp
+    userFileSaver.cpp \
+    userFileLoader.cpp
 
 HEADERS  += mainWindow.h \
 	actionSaver.h \
@@ -46,6 +47,7 @@ HEADERS  += mainWindow.h \
 	actionPerfomer.h \
     kalmanFilter.h \
     userFileStructure.h \
-    userFileSaver.h
+    userFileSaver.h \
+    userFileLoader.h
 
 FORMS    += mainWindow.ui

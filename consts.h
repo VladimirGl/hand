@@ -10,6 +10,11 @@ const int numberOfSensors = 5;
 const int header = 123456;
 }
 
+namespace SensorsConsts {
+const int min = 0;
+const int max = 1023;
+}
+
 namespace HandConsts {
 const int numberOfMotors = 10;
 const int motorMinValue = 0;

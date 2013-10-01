@@ -14,8 +14,8 @@ class ActionLoader : public QObject, ActionFileStructure
 public:
 	ActionLoader(const QString &fileName);
 
-	bool isFileCorrect();
-	bool isFileEnd();
+	bool isFileCorrect() const;
+	bool isFileEnd() const;
 
 	int freq() const { return mFreq; }
 

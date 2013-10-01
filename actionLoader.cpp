@@ -14,12 +14,12 @@ ActionLoader::ActionLoader(const QString &fileName) :
 	propertiesParse();
 }
 
-bool ActionLoader::isFileCorrect()
+bool ActionLoader::isFileCorrect() const
 {
 	return mIsFileCorrect;
 }
 
-bool ActionLoader::isFileEnd()
+bool ActionLoader::isFileEnd() const
 {
 	return mIsFileEnd;
 }
