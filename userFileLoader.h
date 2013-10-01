@@ -8,6 +8,15 @@
 
 #include "userFileStructure.h"
 
+/**
+* @file userFileLoader.h
+*
+* Implementation of UserFileLoader class.
+* Used to read user properties from the file.
+* The first should be read information about DOFs,
+* and after information aboud sensor-motor conformity.
+*/
+
 class UserFileLoader : public UserFileStructure
 {
 public:
@@ -19,8 +28,10 @@ public:
 	bool isDOFRead() const { return mIsDOFData; }
 	bool isConformityRead() const { return mIsConformityData; }
 
+	/// Returns QList of 2 elements, min and max values of DOF.
 	QList<int> DOFList();
 
+	/// Returns QList of unknown size. Each value mean motor number.
 	QList<int> conformityList();
 
 protected:
@@ -29,6 +40,7 @@ protected:
 	void readDOF();
 	void readConformity();
 
+	/// DOF must lie in the interval from 0 to 1023.
 	bool isDOFcorrect(const int &min, const int &max);
 
 private:

@@ -8,6 +8,13 @@
 #include <QTextStream>
 #include <QList>
 
+/**
+* @file actionSaver.h
+*
+* Implementation of ActionSaver class.
+* Used to save action to the file.
+*/
+
 class ActionSaver : public QObject, ActionFileStructure
 {
 	Q_OBJECT
@@ -16,6 +23,7 @@ public:
 			, const int &numOfDOF
 			, const QString &fileName);
 
+	/// Write one motion to the file.
 	void writeData(const QList<int> &data);
 	void stopRecord();
 

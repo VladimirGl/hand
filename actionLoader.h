@@ -8,6 +8,13 @@
 #include <QTextStream>
 #include <QList>
 
+/**
+* @file actionLoader.h
+*
+* Implementation of ActionLoader class.
+* Used to read action from the file.
+*/
+
 class ActionLoader : public QObject, ActionFileStructure
 {
 	Q_OBJECT
@@ -19,9 +26,7 @@ public:
 
 	int freq() const { return mFreq; }
 
-	void startSendingData();
-	void stopSendingData();
-
+	/// Returns one motion.
 	QList<int> data();
 
 signals:

@@ -3,6 +3,26 @@
 
 #include <QString>
 
+/**
+* All action files have the format:
+*
+*********************************************
+*
+* action_file
+* frequency_info (int)A
+* DOF_info (int)B
+* begin_action
+* B integer values ​​separated by a space, e.g: 1 2 3 4 5 6
+* ...
+* ...
+* ...
+* end_action
+*
+*********************************************
+*
+* All integer values in action must lie in the interval from 0 to 180.
+*/
+
 namespace FreqLimits {
 const int maxFreq = 10000;
 const int minFreq = 100;

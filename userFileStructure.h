@@ -3,13 +3,38 @@
 
 #include <QString>
 
+/**
+* All user files have the format:
+*
+*********************************************
+*
+* user_file
+* DOF_list
+* begin
+* Two integer values, e.g:
+* 42 42
+* ...
+* ...
+* end
+* conformity_list
+* begin
+* unknown number of integer values, e.g:
+* 1 2 3
+* 6 5 4
+* 7
+* 8 9
+* end
+*
+*********************************************
+*/
+
 class UserFileStructure
 {
 public:
 	UserFileStructure() :
 		mHeader("user_file"),
 		mDOFKeyWord("DOF_list"),
-		mConformityKeyWord("Conformity_list"),
+		mConformityKeyWord("conformity_list"),
 		mStartWord("begin"),
 		mEndWord("end")
 	{}
