@@ -3,6 +3,11 @@
 
 #include <QWidget>
 
+class QwtPlot;
+class QwtPlotCurve;
+class QwtPlotGrid;
+class QwtSymbol;
+
 namespace Ui {
 class MainWindow;
 }
@@ -12,11 +17,16 @@ class MainWindow : public QWidget
 	Q_OBJECT
 	
 public:
-	explicit MainWindow(QWidget *parent = 0);
+	MainWindow( QWidget * = NULL );
 	~MainWindow();
 	
 private:
-	Ui::MainWindow *ui;
+	QwtPlot *plot;
+	QwtPlotGrid *grid;
+	QwtPlotCurve *curve;
+	QwtSymbol *symbol;
+
+	QPolygonF points;
 };
 
 #endif // MAINWINDOW_H
