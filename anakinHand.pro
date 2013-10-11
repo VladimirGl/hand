@@ -25,10 +25,10 @@ SOURCES += main.cpp\
     calibrator.cpp \
     translator.cpp \
     handInterface.cpp \
-	actionPerfomer.cpp \
     kalmanFilter.cpp \
     userFileSaver.cpp \
-    userFileLoader.cpp
+    userFileLoader.cpp \
+    fileActionPerfomer.cpp
 
 HEADERS  += mainWindow.h \
 	actionSaver.h \
@@ -44,10 +44,10 @@ HEADERS  += mainWindow.h \
     handInterface.h \
     consts.h \
     degreeOfFreedom.h \
-	actionPerfomer.h \
     kalmanFilter.h \
     userFileStructure.h \
     userFileSaver.h \
-    userFileLoader.h
+    userFileLoader.h \
+    fileActionPerfomer.h
 
 FORMS    += mainWindow.ui

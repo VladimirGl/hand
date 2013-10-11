@@ -3,22 +3,14 @@
 #include <QFile>
 #include <QTextStream>
 
-#include <QTimer>
-
-ActionSaver::ActionSaver(const int &freq, const int &numOfDOF, const QString &fileName) :
-	mFreq(freq),
-	mNumberOfDOF(numOfDOF)
+ActionSaver::ActionSaver(const int &freq, const int &numOfDOF, const QString &fileName)
 {
 	mFile.setFileName(fileName);
 	mFile.open(QFile::WriteOnly | QFile::Truncate);
 
 	mStream.setDevice(&mFile);
 
-	writePropertiesData();
-
-	QTimer *timer = new QTimer(this);
-	connect(timer, SIGNAL(timeout()), this, SIGNAL(onReadyWrite()));
-	timer->start(mFreq);
+	writePropertiesData(freq, numOfDOF);
 }
 
 void ActionSaver::writeData(const QList<int> &data)
@@ -43,17 +35,17 @@ void ActionSaver::stopRecord()
 	mFile.close();
 }
 
-void ActionSaver::writePropertiesData()
+void ActionSaver::writePropertiesData(const int &freq, const int &numOfDOF)
 {
 	mStream << ActionFileStructure::header()
 			<< "\n"
 			<< ActionFileStructure::freqKeyWord()
 			<< " "
-			<< mFreq
+			<< freq
 			<< "\n"
 			<< ActionFileStructure::DOFKeyWord()
 			<< " "
-			<< mNumberOfDOF
+			<< numOfDOF
 			<< "\n"
 			<< ActionFileStructure::startActionKeyWord()
 			<< "\n";

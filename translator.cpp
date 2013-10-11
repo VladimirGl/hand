@@ -2,7 +2,7 @@
 
 #include "gloveInterface.h"
 #include "handInterface.h"
-#include "actionPerfomer.h"
+#include "fileActionPerfomer.h"
 #include "user.h"
 
 #include "consts.h"
@@ -10,7 +10,7 @@
 Translator::Translator() :
 	mConnectionType(noConnection),
 	mUser(new User),
-	mActionsPerfomer(new ActionPerfomer),
+	mFileActionsPerfomer(new FileActionPerfomer),
 	mGloveInterface(new GloveInterface),
 	mHandInterface(new HandInterface)
 {
@@ -55,7 +55,7 @@ void Translator::startConnection()
 		break;
 	}
 	case actionToHand: {
-		connect(mActionsPerfomer, SIGNAL(commandIsSend()), this, SLOT(convertData()));
+		connect(mFileActionsPerfomer, SIGNAL(commandIsSend()), this, SLOT(convertData()));
 		break;
 	}
 	}
@@ -68,7 +68,7 @@ void Translator::convertData()
 	}
 
 	if (mConnectionType == actionToHand) {
-		saveConvertedData(*mActionsPerfomer->data());
+		saveConvertedData(mFileActionsPerfomer->data());
 		sendDataToHand();
 
 		return;
