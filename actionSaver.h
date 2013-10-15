@@ -21,6 +21,7 @@ public:
 	ActionSaver(const int &freq
 			, const int &numOfDOF
 			, const QString &fileName);
+	~ActionSaver();
 
 	/// Write one motion to the file.
 	void writeData(const QList<int> &data);

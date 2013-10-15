@@ -1,11 +1,20 @@
-#include "fileActionPerfomer.h"
+#include "fileActionPerformer.h"
 
 #include "actionLoader.h"
 #include "actionSaver.h"
 
 #include <QTimer>
 
-FileActionPerfomer::~FileActionPerfomer()
+FileActionPerformer::FileActionPerformer() :
+	mIsStartSave(false),
+	mIsStartLoad(false),
+	mIsTime(false),
+	mFreq(0),
+	mSaver(NULL),
+	mLoader(NULL)
+{}
+
+FileActionPerformer::~FileActionPerformer()
 {
 	if (mSaver != NULL) {
 		delete mSaver;
@@ -18,7 +27,7 @@ FileActionPerfomer::~FileActionPerfomer()
 	}
 }
 
-void FileActionPerfomer::startSave(const int &freq, const int &numOfDOF, const QString &fileName)
+void FileActionPerformer::startSave(const int &freq, const int &numOfDOF, const QString &fileName)
 {
 	if (mIsStartLoad) {
 		return;
@@ -31,7 +40,7 @@ void FileActionPerfomer::startSave(const int &freq, const int &numOfDOF, const Q
 	mFreq = freq;
 }
 
-void FileActionPerfomer::writeData(const QList<int> &data)
+void FileActionPerformer::writeData(const QList<int> &data)
 {
 	if (!mIsStartSave) {
 		return;
@@ -47,7 +56,7 @@ void FileActionPerfomer::writeData(const QList<int> &data)
 	mSaver->writeData(data);
 }
 
-void FileActionPerfomer::stopSave()
+void FileActionPerformer::stopSave()
 {
 	mFreq = 0;
 	mIsTime = false;
@@ -60,7 +69,7 @@ void FileActionPerfomer::stopSave()
 	mSaver = NULL;
 }
 
-void FileActionPerfomer::startLoad(const QString &fileName)
+void FileActionPerformer::startLoad(const QString &fileName)
 {
 	if (mIsStartSave) {
 		return;
@@ -76,30 +85,30 @@ void FileActionPerfomer::startLoad(const QString &fileName)
 	mTimer->start(mFreq);
 }
 
-QList<int> FileActionPerfomer::data()
+QList<int> FileActionPerformer::data()
 {
-	mLoader->data();
+	return mLoader->data();
 }
 
-bool FileActionPerfomer::isFileEnd() const
-{
-	if (!mIsStartLoad) {
-		return true;
-	}
-
-	mLoader->isFileEnd();
-}
-
-bool FileActionPerfomer::isFileCorrect() const
+bool FileActionPerformer::isFileEnd() const
 {
 	if (!mIsStartLoad) {
 		return true;
 	}
 
-	mLoader->isFileCorrect();
+	return mLoader->isFileEnd();
 }
 
-void FileActionPerfomer::stopLoad()
+bool FileActionPerformer::isFileCorrect() const
+{
+	if (!mIsStartLoad) {
+		return true;
+	}
+
+	return mLoader->isFileCorrect();
+}
+
+void FileActionPerformer::stopLoad()
 {
 	mFreq = 0;
 	mIsStartLoad = false;

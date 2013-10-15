@@ -13,6 +13,11 @@ ActionSaver::ActionSaver(const int &freq, const int &numOfDOF, const QString &fi
 	writePropertiesData(freq, numOfDOF);
 }
 
+ActionSaver::~ActionSaver()
+{
+	mFile.close();
+}
+
 void ActionSaver::writeData(const QList<int> &data)
 {
 	const int size = data.size();

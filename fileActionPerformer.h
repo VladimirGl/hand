@@ -10,20 +10,13 @@ class ActionLoader;
 class QString;
 class QTimer;
 
-class FileActionPerfomer : public QObject
+class FileActionPerformer : public QObject
 {
 	Q_OBJECT
 public:
-	FileActionPerfomer() :
-		mIsStartSave(false),
-		mIsStartLoad(false),
-		mIsTime(false),
-		mFreq(0),
-		mSaver(NULL),
-		mLoader(NULL)
-	{}
+	FileActionPerformer();
 
-	~FileActionPerfomer();
+	~FileActionPerformer();
 
 	bool hasSaver() const { return mSaver != NULL; }
 	bool hasLoader() const { return mLoader != NULL; }

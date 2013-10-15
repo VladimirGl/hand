@@ -19,6 +19,7 @@ class ActionLoader : ActionFileStructure
 {
 public:
 	ActionLoader(const QString &fileName);
+	~ActionLoader();
 
 	bool isFileCorrect() const;
 	bool isFileEnd() const;

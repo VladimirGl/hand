@@ -12,7 +12,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = anakinHand
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         mainWindow.cpp \
 	actionSaver.cpp \
@@ -28,7 +27,7 @@ SOURCES += main.cpp\
     kalmanFilter.cpp \
     userFileSaver.cpp \
     userFileLoader.cpp \
-    fileActionPerfomer.cpp
+    fileActionPerformer.cpp
 
 HEADERS  += mainWindow.h \
 	actionSaver.h \
@@ -48,6 +47,8 @@ HEADERS  += mainWindow.h \
     userFileStructure.h \
     userFileSaver.h \
     userFileLoader.h \
-    fileActionPerfomer.h
+    fileActionPerformer.h
 
 FORMS    += mainWindow.ui
+
+SUBDIRS +=

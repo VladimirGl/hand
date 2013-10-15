@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QList>
 
-class FileActionPerfomer;
+class FileActionPerformer;
 class GloveInterface;
 class HandInterface;
 class User;
@@ -57,7 +57,8 @@ private:
 
 	User *mUser;
 
-	FileActionPerfomer *mFileActionsPerfomer;
+	FileActionPerformer *mFileActionPerformer;
+
 	GloveInterface *mGloveInterface;
 	HandInterface *mHandInterface;
 };
