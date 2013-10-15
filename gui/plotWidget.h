@@ -11,7 +11,6 @@ class QwtPlotGrid;
 
 class PlotWidget : public QwtPlot
 {
-	Q_OBJECT
 public:
 	PlotWidget();
 	~PlotWidget();
@@ -21,9 +20,7 @@ public:
 
 	void setFilteredVisible(bool isVisible);
 
-public slots:
-	void updateOriginalPoint(const int &newPoint);
-	void updateFilteredPoint(const int &newPoint);
+	void clear();
 
 private:
 	QwtPlotCurve *mOriginalCurve;

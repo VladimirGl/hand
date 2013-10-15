@@ -75,16 +75,14 @@ void PlotWidget::addFilteredPoint(const int &newPoint)
 void PlotWidget::setFilteredVisible(bool isVisible)
 {
 	mFilteredCurve->setVisible(isVisible);
+	mFilteredCurve->setSamples(mIterator.toVector(), mFilteredData.toVector());
+	this->replot();
 }
 
-void PlotWidget::updateOriginalPoint(const int &newPoint)
+void PlotWidget::clear()
 {
-	addOriginalPoint(newPoint);
+	mOriginalData.clear();
+	mFilteredData.clear();
+
+	this->replot();
 }
-
-void PlotWidget::updateFilteredPoint(const int &newPoint)
-{
-	addFilteredPoint(newPoint);
-}
-
-
