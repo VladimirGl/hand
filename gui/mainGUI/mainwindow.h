@@ -5,6 +5,7 @@
 
 #include "../action/actionWidget.h"
 #include "../../fileActionPerformer.h"
+#include "../plot/graphicalWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +38,7 @@ private:
 	int i;
 
 	ActionWidget *mActionWidget;
+	GraphicalWidget *mGraphicalWidget;
 };
 
 #endif // MAINWINDOW_H

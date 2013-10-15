@@ -11,11 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+	int jg = 6;
+
 	mActionWidget = new ActionWidget;
+	mGraphicalWidget = new GraphicalWidget(jg);
 
 	i = 0;
 
 	ui->stackedWidget->addWidget(mActionWidget);
+	ui->stackedWidget->addWidget(mGraphicalWidget);
 
 	connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 
@@ -30,7 +34,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
-	ui->stackedWidget->setCurrentIndex(2);
+	i = (i + 1) % 4;
+
+	ui->stackedWidget->setCurrentIndex(i);
 }
 
 void MainWindow::startLoading(const QString &fileName)
