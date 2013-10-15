@@ -14,6 +14,9 @@ include(gui/gui.pri)
 TARGET = anakinHand
 TEMPLATE = app
 
+INCLUDEPATH += C:/Qt/qwt-6.1.0/qwt-6.1.0/src
+LIBS += -LC:/Qt/qwt-6.1.0/qwt-6.1.0/lib -lqwtd
+
 SOURCES += main.cpp\
 	actionSaver.cpp \
 	actionLoader.cpp \
@@ -49,7 +52,3 @@ HEADERS  += \
     userFileSaver.h \
     userFileLoader.h \
     fileActionPerformer.h
-
-FORMS    +=
-
-SUBDIRS +=
