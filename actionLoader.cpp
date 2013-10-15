@@ -14,6 +14,11 @@ ActionLoader::ActionLoader(const QString &fileName) :
 	propertiesParse();
 }
 
+ActionLoader::~ActionLoader()
+{
+	mFile.close();
+}
+
 bool ActionLoader::isFileCorrect() const
 {
 	return mIsFileCorrect;

@@ -2,15 +2,17 @@
 
 #include "gloveInterface.h"
 #include "handInterface.h"
-#include "actionPerfomer.h"
+#include "fileActionPerformer.h"
 #include "user.h"
 
 #include "consts.h"
 
+#include <QDebug>
+
 Translator::Translator() :
 	mConnectionType(noConnection),
 	mUser(new User),
-	mActionsPerfomer(new ActionPerfomer),
+	mFileActionPerformer(new FileActionPerformer),
 	mGloveInterface(new GloveInterface),
 	mHandInterface(new HandInterface)
 {
@@ -55,10 +57,50 @@ void Translator::startConnection()
 		break;
 	}
 	case actionToHand: {
-		connect(mActionsPerfomer, SIGNAL(commandIsSend()), this, SLOT(convertData()));
+		connect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
 		break;
 	}
 	}
+}
+
+void Translator::stopConnection()
+{
+	disconnect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
+}
+
+void Translator::startLoadAction(const QString &fileName)
+{
+	if (mFileActionPerformer->isLoaded()) {
+		stopLoadAction();
+	}
+
+	mFileActionPerformer->startLoad(fileName);
+
+	if ((mFileActionPerformer->isFileCorrect()) && (connectionType() == actionToHand)) {
+		startConnection();
+	}
+}
+
+void Translator::stopLoadAction()
+{
+	if (!mFileActionPerformer->isLoaded()) {
+		return;
+	}
+
+	stopConnection();
+	mFileActionPerformer->stopLoad();
+
+	emit loadingStoped();
+}
+
+void Translator::startSaveAction(const QString &fileName)
+{
+
+}
+
+void Translator::stopSaveAction()
+{
+
 }
 
 void Translator::convertData()
@@ -68,7 +110,14 @@ void Translator::convertData()
 	}
 
 	if (mConnectionType == actionToHand) {
-		saveConvertedData(*mActionsPerfomer->data());
+		QList<int> temp = mFileActionPerformer->data();
+
+		if (!mFileActionPerformer->isFileCorrect() || mFileActionPerformer->isFileEnd()) {
+			stopLoadAction();
+			return;
+		}
+
+		saveConvertedData(temp);
 		sendDataToHand();
 
 		return;

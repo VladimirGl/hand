@@ -9,6 +9,8 @@ QT       += serialport \
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+include(gui/gui.pri)
+
 TARGET = anakinHand
 TEMPLATE = app
 
@@ -16,7 +18,6 @@ INCLUDEPATH += C:/Qt/qwt-6.1.0/qwt-6.1.0/src
 LIBS += -LC:/Qt/qwt-6.1.0/qwt-6.1.0/lib -lqwtd
 
 SOURCES += main.cpp\
-        mainWindow.cpp \
 	actionSaver.cpp \
 	actionLoader.cpp \
 	glove.cpp \
@@ -27,13 +28,12 @@ SOURCES += main.cpp\
     calibrator.cpp \
     translator.cpp \
     handInterface.cpp \
-	actionPerfomer.cpp \
     kalmanFilter.cpp \
     userFileSaver.cpp \
     userFileLoader.cpp \
-    plot.cpp
+    fileActionPerformer.cpp
 
-HEADERS  += mainWindow.h \
+HEADERS  += \
 	actionSaver.h \
 	actionFileStructure.h \
 	actionLoader.h \
@@ -47,11 +47,8 @@ HEADERS  += mainWindow.h \
     handInterface.h \
     consts.h \
     degreeOfFreedom.h \
-	actionPerfomer.h \
     kalmanFilter.h \
     userFileStructure.h \
     userFileSaver.h \
     userFileLoader.h \
-    plot.h
-
-FORMS    += mainWindow.ui
+    fileActionPerformer.h

@@ -15,30 +15,24 @@
 * Used to save action to the file.
 */
 
-class ActionSaver : public QObject, ActionFileStructure
+class ActionSaver : public ActionFileStructure
 {
-	Q_OBJECT
 public:
 	ActionSaver(const int &freq
 			, const int &numOfDOF
 			, const QString &fileName);
+	~ActionSaver();
 
 	/// Write one motion to the file.
 	void writeData(const QList<int> &data);
 	void stopRecord();
 
-signals:
-	void onReadyWrite();
-
 protected:
-	void writePropertiesData();
+	void writePropertiesData(const int &freq, const int &numOfDOF);
 
 private:
 	QFile mFile;
 	QTextStream mStream;
-
-	int mFreq;
-	int mNumberOfDOF;
 };
 
 #endif // ACTIONSAVER_H

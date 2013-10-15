@@ -15,11 +15,11 @@
 * Used to read action from the file.
 */
 
-class ActionLoader : public QObject, ActionFileStructure
+class ActionLoader : ActionFileStructure
 {
-	Q_OBJECT
 public:
 	ActionLoader(const QString &fileName);
+	~ActionLoader();
 
 	bool isFileCorrect() const;
 	bool isFileEnd() const;
@@ -28,9 +28,6 @@ public:
 
 	/// Returns one motion.
 	QList<int> data();
-
-signals:
-	void onReadyRead();
 
 protected:
 	void propertiesParse();

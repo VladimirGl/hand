@@ -6,6 +6,8 @@
 #include <QString>
 #include <QTimer>
 
+#include <QDebug>
+
 #include <inttypes.h>
 
 #include "consts.h"
@@ -61,6 +63,8 @@ bool Hand::isPortSet()
 
 void Hand::moveMotor(const int &num, const int &value)
 {
+	qDebug() << num << " - " << value;
+
 	if (mPort->isOpen()) {
 		QString sendData;
 

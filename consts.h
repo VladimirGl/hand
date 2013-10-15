@@ -16,7 +16,7 @@ const int max = 1023;
 }
 
 namespace HandConsts {
-const int numberOfMotors = 10;
+const int numberOfMotors = 6;
 const int motorMinValue = 0;
 const int motorMaxValue = 180;
 const int startMotorValue = motorMaxValue;
