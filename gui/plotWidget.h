@@ -22,8 +22,8 @@ public:
 	void setFilteredVisible(bool isVisible);
 
 public slots:
-	void updateOriginalPoint();
-	void updateFilteredPoint();
+	void updateOriginalPoint(const int &newPoint);
+	void updateFilteredPoint(const int &newPoint);
 
 private:
 	QwtPlotCurve *mOriginalCurve;

@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	curve->setSamples(points);
 	curve->attach(plot);
+
+
+	plot->resize(600, 400);
 }
 
 

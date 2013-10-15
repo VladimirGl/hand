@@ -13,7 +13,7 @@ TARGET = anakinHand
 TEMPLATE = app
 
 INCLUDEPATH += C:/Qt/qwt-6.1.0/qwt-6.1.0/src
-LIBS += C:/Qt/qwt-6.1.0/qwt-6.1.0/lib/qwtd.dll
+LIBS += -LC:/Qt/qwt-6.1.0/qwt-6.1.0/lib -lqwtd
 
 SOURCES += main.cpp\
         mainWindow.cpp \

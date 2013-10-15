@@ -77,26 +77,14 @@ void PlotWidget::setFilteredVisible(bool isVisible)
 	mFilteredCurve->setVisible(isVisible);
 }
 
-void PlotWidget::updateOriginalPoint()
+void PlotWidget::updateOriginalPoint(const int &newPoint)
 {
-	if (mOriginalData.isEmpty())
-	{
-		addOriginalPoint(qrand() % 11 - 4);
-	}
-	else {
-		addOriginalPoint(mOriginalData. last() + qrand() % 11 - 4);
-	}
+	addOriginalPoint(newPoint);
 }
 
-void PlotWidget::updateFilteredPoint()
+void PlotWidget::updateFilteredPoint(const int &newPoint)
 {
-	if (mFilteredData.isEmpty())
-	{
-		addFilteredPoint(qrand() % 11 - 4);
-	}
-	else {
-		addFilteredPoint(mFilteredData. last() + qrand() % 11 - 4);
-	}
+	addFilteredPoint(newPoint);
 }
 
 
