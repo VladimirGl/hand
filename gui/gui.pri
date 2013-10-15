@@ -1,8 +1,10 @@
-HEADERS  += \
-	gui/mainGUI/mainwindow.h \
+HEADERS  += gui/plot/plotWidget.h \
+        gui/plot/graphicalWidget.h \
+        gui/mainGUI/mainwindow.h \
     gui/action/actionWidget.h
 
-SOURCES += \
+SOURCES += gui/plot/plotWidget.cpp \
+        gui/plot/graphicalWidget.cpp \
 	gui/mainGUI/mainwindow.cpp \
     gui/action/actionWidget.cpp
 
