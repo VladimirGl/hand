@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="startButton">
+  <widget class="QPushButton" name="startLoadButton">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -33,33 +33,72 @@
     </rect>
    </property>
    <property name="text">
-    <string>start</string>
+    <string>start load</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="stopButton">
+  <widget class="QPushButton" name="stopLoadButton">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>200</y>
+     <x>50</x>
+     <y>220</y>
      <width>80</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>stop</string>
+    <string>stop load</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="isLoadedCheckBox">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>240</y>
+     <x>50</x>
+     <y>250</y>
      <width>111</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>load?</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="isSavedCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>250</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>save?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="stopSaveButton">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>220</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>stop save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="startSaveButton">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>190</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>start save</string>
    </property>
   </widget>
  </widget>

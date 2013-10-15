@@ -13,15 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-		action.cpp \
-		../../actionLoader.cpp \
-		../../actionSaver.cpp \
-		../../fileActionPerformer.cpp
+		action.cpp
 
-HEADERS  += action.h \
-		../../actionLoader.h \
-		../../actionSaver.h \
-		../../fileActionPerformer.h \
-		../../actionFileStructure.h
+HEADERS  += action.h
 
 FORMS    += action.ui

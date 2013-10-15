@@ -26,6 +26,7 @@ public:
 	bool connectHand();
 
 	void startConnection();
+	void stopConnection();
 
 	QList<int> *sensorData() { return &mSensorDatas; }
 	QList<int> *convertedData() { return &mConvertedDatas; }
@@ -33,8 +34,17 @@ public:
 	void setConnectionType(ConnectionType const& type) { mConnectionType = type; }
 	ConnectionType connectionType() const { return mConnectionType; }
 
+	void startLoadAction(const QString &fileName);
+	void stopLoadAction();
+
+	void startSaveAction(const QString &fileName);
+	void stopSaveAction();
+
 protected slots:
 	void convertData();
+
+signals:
+	void loadingStoped();
 
 protected:
 	void saveConvertedData(QList<int> const& data);

@@ -9,11 +9,12 @@ QT       += serialport \
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+include(gui/gui.pri)
+
 TARGET = anakinHand
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        mainWindow.cpp \
 	actionSaver.cpp \
 	actionLoader.cpp \
 	glove.cpp \
@@ -29,7 +30,7 @@ SOURCES += main.cpp\
     userFileLoader.cpp \
     fileActionPerformer.cpp
 
-HEADERS  += mainWindow.h \
+HEADERS  += \
 	actionSaver.h \
 	actionFileStructure.h \
 	actionLoader.h \
@@ -49,6 +50,6 @@ HEADERS  += mainWindow.h \
     userFileLoader.h \
     fileActionPerformer.h
 
-FORMS    += mainWindow.ui
+FORMS    +=
 
 SUBDIRS +=

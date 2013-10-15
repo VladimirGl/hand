@@ -87,7 +87,9 @@ void FileActionPerformer::startLoad(const QString &fileName)
 
 QList<int> FileActionPerformer::data()
 {
-	return mLoader->data();
+	QList<int> temp = mLoader->data();
+
+	return temp;
 }
 
 bool FileActionPerformer::isFileEnd() const
@@ -120,4 +122,3 @@ void FileActionPerformer::stopLoad()
 	delete mLoader;
 	mLoader = NULL;
 }
-
