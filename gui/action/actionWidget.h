@@ -16,12 +16,13 @@ public:
 	~ActionWidget();
 
 	void dataEnd();
+	void saveingEnd();
 
 signals:
 	void startLoading(const QString &fileName);
 	void stopLoading();
 
-	void startSaveing(const QString &fileName);
+	void startSaveing(const QString &fileName, const int &freq);
 	void stopSaveing();
 
 protected slots:

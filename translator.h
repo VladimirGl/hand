@@ -37,7 +37,7 @@ public:
 	void startLoadAction(const QString &fileName);
 	void stopLoadAction();
 
-	void startSaveAction(const QString &fileName);
+	void startSaveAction(const QString &fileName, const int &freq);
 	void stopSaveAction();
 
 protected slots:

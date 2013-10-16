@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(mActionWidget, SIGNAL(startLoading(QString)), this, SLOT(startLoading(QString)));
 	connect(mActionWidget, SIGNAL(stopLoading()), this, SLOT(stopLoading()));
+
+	connect(mActionWidget, SIGNAL(startSaveing(QString,int)), this, SLOT(startSaveing(QString,int)));
+	connect(mActionWidget, SIGNAL(stopSaveing()), this, SLOT(stopSaveing()));
 }
 
 MainWindow::~MainWindow()
@@ -46,4 +49,15 @@ void MainWindow::stopLoading()
 
 	mActionWidget->dataEnd();
 	mTranslator->stopLoadAction();
+}
+
+void MainWindow::startSaveing(const QString &fileName, const int &freq)
+{
+	mTranslator->startSaveAction(fileName, freq);
+}
+
+void MainWindow::stopSaveing()
+{
+	mActionWidget->saveingEnd();
+	mTranslator->stopSaveAction();
 }

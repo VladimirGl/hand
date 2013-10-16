@@ -37,6 +37,11 @@ void ActionWidget::dataEnd()
 	ui->isLoadedCheckBox->setChecked(false);
 }
 
+void ActionWidget::saveingEnd()
+{
+	ui->isSavedCheckBox->setChecked(false);
+}
+
 void ActionWidget::startLoad()
 {
 	QString fileName = "/home/rayman/Downloads/anakinHand/gui/action/actionFiles/"
@@ -61,7 +66,9 @@ void ActionWidget::startSave()
 
 	ui->isSavedCheckBox->setChecked(true);
 
-	emit startSaveing(fileName);
+	int freq = ui->freqLineEdit->text().toInt();
+
+	emit startSaveing(fileName, freq);
 }
 
 void ActionWidget::stopSave()

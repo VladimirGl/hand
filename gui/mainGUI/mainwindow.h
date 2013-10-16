@@ -29,6 +29,9 @@ protected slots:
 	void startLoading(const QString &fileName);
 	void stopLoading();
 
+	void startSaveing(const QString &fileName, const int &freq);
+	void stopSaveing();
+
 private:
 	Ui::MainWindow *ui;
 

@@ -93,14 +93,18 @@ void Translator::stopLoadAction()
 	emit loadingStoped();
 }
 
-void Translator::startSaveAction(const QString &fileName)
+void Translator::startSaveAction(const QString &fileName, const int &freq)
 {
+	if (mFileActionPerformer->isSaved()) {
+		stopSaveAction();
+	}
 
+	mFileActionPerformer->startSave(freq, GloveConsts::numberOfSensors, fileName);
 }
 
 void Translator::stopSaveAction()
 {
-
+	mFileActionPerformer->stopSave();
 }
 
 void Translator::convertData()
@@ -138,6 +142,10 @@ void Translator::convertData()
 
 void Translator::sendDataToHand()
 {
+	if (mFileActionPerformer->isSaved()) {
+		mFileActionPerformer->writeData(mConvertedDatas);
+	}
+
 	mHandInterface->moveMotors(mConvertedDatas);
 }
 
