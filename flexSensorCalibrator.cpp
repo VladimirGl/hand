@@ -19,6 +19,10 @@ void FlexSensorCalibrator::addValue(const int &value)
 
 		if (mData.size() == queueSize) {
 			mIsQueueFilled = true;
+
+			for (int i = 0; i < queueSize; i++) {
+				mSum += mData.at(i);
+			}
 		}
 
 		return;

@@ -11,8 +11,9 @@ int main(int argc, char *argv[])
 
 	Translator *translator = new Translator;
 
-	translator->setConnectionType(actionToHand);
+	translator->setConnectionType(noConnection);
 	translator->connectHand();
+	translator->connectGlove();
 
 	w.setTranslator(translator);
 	

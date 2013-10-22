@@ -12,7 +12,6 @@ GloveCalibrator::GloveCalibrator() :
 void GloveCalibrator::startCalibrate()
 {
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
-		qDebug() << i;
 		FlexSensorCalibrator *temp = new FlexSensorCalibrator;
 
 		mFlexCalibrators.append(temp);

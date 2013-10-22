@@ -2,6 +2,8 @@
 
 #include "glove.h"
 
+#include <QDebug>
+
 GloveInterface::GloveInterface() :
 	mGlove(new Glove)
 {

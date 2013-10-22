@@ -9,6 +9,8 @@
 
 #include "consts.h"
 
+#include <QDebug>
+
 Glove::Glove()
 {
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
@@ -111,6 +113,8 @@ void Glove::getDataFromFlexSensors()
 void Glove::setPortSettings()
 {
 	mPort = new QSerialPort;
+
+	mPort->setPortName("ttyACM0");
 
 	mPort->setBaudRate(QSerialPort::Baud115200);
 	mPort->setDataBits(QSerialPort::Data8);

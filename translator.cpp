@@ -55,6 +55,7 @@ void Translator::startConnection()
 		return;
 	}
 	case gloveToHand: {
+		mGloveInterface->startSendingDatas();
 		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
 		break;
 	}
@@ -64,6 +65,7 @@ void Translator::startConnection()
 		break;
 	}
 	case calibrate: {
+		mGloveInterface->startSendingDatas();
 		mGloveCalibrator->startCalibrate();
 		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
 		connect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
@@ -79,14 +81,17 @@ void Translator::stopConnection()
 		return;
 	}
 	case gloveToHand: {
+		mGloveInterface->stopSendingDatas();
 		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
 		break;
 	}
 	case actionToHand: {
+		mHandInterface->stopSendingDatas();
 		disconnect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
 		break;
 	}
 	case calibrate: {
+		mGloveInterface->stopSendingDatas();
 		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
 		disconnect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
 		break;
@@ -103,13 +108,15 @@ void Translator::setConnectionType(const ConnectionType &type)
 
 void Translator::startLoadAction(const QString &fileName)
 {
+	setConnectionType(actionToHand);
+
 	if (mFileActionPerformer->isLoaded()) {
 		stopLoadAction();
 	}
 
 	mFileActionPerformer->startLoad(fileName);
 
-	if ((mFileActionPerformer->isFileCorrect()) && (connectionType() == actionToHand)) {
+	if ((mFileActionPerformer->isFileCorrect())) {
 		startConnection();
 	}
 }
@@ -189,7 +196,7 @@ void Translator::convertData()
 
 void Translator::sendDataToCalibrator()
 {
-	mGloveCalibrator->writeData(mSensorDatas);
+	mGloveCalibrator->writeData(mGloveInterface->gloveDatas());
 }
 
 void Translator::sendDataToHand()
