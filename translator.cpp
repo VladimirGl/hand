@@ -4,6 +4,7 @@
 #include "handInterface.h"
 #include "fileActionPerformer.h"
 #include "user.h"
+#include "gloveCalibrator.h"
 
 #include "consts.h"
 
@@ -13,6 +14,7 @@ Translator::Translator() :
 	mConnectionType(noConnection),
 	mUser(new User),
 	mFileActionPerformer(new FileActionPerformer),
+	mGloveCalibrator(new GloveCalibrator),
 	mGloveInterface(new GloveInterface),
 	mHandInterface(new HandInterface)
 {
@@ -57,15 +59,46 @@ void Translator::startConnection()
 		break;
 	}
 	case actionToHand: {
+		mHandInterface->startSendingDatas();
 		connect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
 		break;
+	}
+	case calibrate: {
+		mGloveCalibrator->startCalibrate();
+		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
+		connect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
 	}
 	}
 }
 
 void Translator::stopConnection()
 {
-	disconnect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
+	switch (mConnectionType)
+	{
+	case noConnection: {
+		return;
+	}
+	case gloveToHand: {
+		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
+		break;
+	}
+	case actionToHand: {
+		disconnect(mFileActionPerformer, SIGNAL(onReadyLoad()), this, SLOT(convertData()));
+		break;
+	}
+	case calibrate: {
+		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
+		disconnect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
+		break;
+	}
+	}
+}
+
+void Translator::setConnectionType(const ConnectionType &type)
+{
+	stopConnection();
+
+	mConnectionType = type;
 }
 
 void Translator::startLoadAction(const QString &fileName)
@@ -107,6 +140,20 @@ void Translator::stopSaveAction()
 	mFileActionPerformer->stopSave();
 }
 
+void Translator::startCalibrate()
+{
+	setConnectionType(calibrate);
+
+	startConnection();
+}
+
+void Translator::stopCalibrate()
+{
+	mGloveCalibrator->stopCalibrate();
+
+	stopConnection();
+}
+
 void Translator::convertData()
 {
 	if (mConnectionType == noConnection) {
@@ -127,7 +174,7 @@ void Translator::convertData()
 		return;
 	}
 
-	saveSensorsData(*mGloveInterface->gloveDatas());
+	saveSensorsData(mGloveInterface->gloveDatas());
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		QList<int> motorList = mUser->motorList(i);
@@ -138,6 +185,11 @@ void Translator::convertData()
 	}
 
 	sendDataToHand();
+}
+
+void Translator::sendDataToCalibrator()
+{
+	mGloveCalibrator->writeData(mSensorDatas);
 }
 
 void Translator::sendDataToHand()

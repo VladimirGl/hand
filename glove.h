@@ -36,7 +36,7 @@ public:
 	bool isPortSet();
 
 	/// Returns the latest data from the sensors.
-	QList<int> *data();
+	QList<int> data();
 
 signals:
 	/// Sent when the computer reads the correct data from the glove.

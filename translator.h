@@ -8,11 +8,13 @@ class FileActionPerformer;
 class GloveInterface;
 class HandInterface;
 class User;
+class GloveCalibrator;
 
 enum ConnectionType {
 	noConnection = 0,
 	gloveToHand = 1,
-	actionToHand = 2
+	actionToHand = 2,
+	calibrate = 3
 };
 
 class Translator :  public QObject
@@ -31,7 +33,7 @@ public:
 	QList<int> *sensorData() { return &mSensorDatas; }
 	QList<int> *convertedData() { return &mConvertedDatas; }
 
-	void setConnectionType(ConnectionType const& type) { mConnectionType = type; }
+	void setConnectionType(ConnectionType const& type);
 	ConnectionType connectionType() const { return mConnectionType; }
 
 	void startLoadAction(const QString &fileName);
@@ -40,8 +42,14 @@ public:
 	void startSaveAction(const QString &fileName, const int &freq);
 	void stopSaveAction();
 
+	void startCalibrate();
+
+public slots:
+	void stopCalibrate();
+
 protected slots:
 	void convertData();
+	void sendDataToCalibrator();
 
 signals:
 	void loadingStoped();
@@ -68,6 +76,7 @@ private:
 	User *mUser;
 
 	FileActionPerformer *mFileActionPerformer;
+	GloveCalibrator *mGloveCalibrator;
 
 	GloveInterface *mGloveInterface;
 	HandInterface *mHandInterface;

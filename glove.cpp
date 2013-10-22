@@ -56,9 +56,9 @@ bool Glove::isPortSet()
 	return !(mPort->portName().isEmpty());
 }
 
-QList<int> *Glove::data()
+QList<int> Glove::data()
 {
-	return &mLastData;
+	return mLastData;
 }
 
 void Glove::onReadyRead()

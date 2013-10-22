@@ -30,7 +30,7 @@ public:
 	/// Calls the appropriate method of the Glove class.
 	void stopSendingDatas();
 
-	QList<int> *gloveDatas();
+	QList<int> gloveDatas();
 
 signals:
 	/// Re emits the signal of the glove.

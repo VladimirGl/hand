@@ -41,7 +41,7 @@ void GloveInterface::stopSendingDatas()
 	mGlove->stopSendingData();
 }
 
-QList<int> *GloveInterface::gloveDatas()
+QList<int> GloveInterface::gloveDatas()
 {
 	return mGlove->data();
 }

@@ -12,18 +12,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 
 	mActionWidget = new ActionWidget;
+	mCalibratorWidget = new CalibratorWidget;
 
-	i = 0;
+	mCurrWidget = 3;
 
 	ui->stackedWidget->addWidget(mActionWidget);
+	ui->stackedWidget->addWidget(mCalibratorWidget);
+	ui->stackedWidget->setCurrentIndex(mCurrWidget);
 
 	connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 
-	connect(mActionWidget, SIGNAL(startLoading(QString)), this, SLOT(startLoading(QString)));
-	connect(mActionWidget, SIGNAL(stopLoading()), this, SLOT(stopLoading()));
 
-	connect(mActionWidget, SIGNAL(startSaveing(QString,int)), this, SLOT(startSaveing(QString,int)));
-	connect(mActionWidget, SIGNAL(stopSaveing()), this, SLOT(stopSaveing()));
+	actionWidgetConnector();
+	connect(mCalibratorWidget, SIGNAL(startCalibrate()), this, SLOT(startCalibrate()));
+	connect(mCalibratorWidget, SIGNAL(stopCalibrate()), this, SLOT(stopCalibrate()));
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +35,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
-	ui->stackedWidget->setCurrentIndex(2);
+	if (mCurrWidget == 2) {
+		mCurrWidget = 3;
+	} else if (mCurrWidget == 3) {
+		mCurrWidget =2;
+	}
+
+	ui->stackedWidget->setCurrentIndex(mCurrWidget);
 }
 
 void MainWindow::startLoading(const QString &fileName)
@@ -60,4 +68,29 @@ void MainWindow::stopSaveing()
 {
 	mActionWidget->saveingEnd();
 	mTranslator->stopSaveAction();
+}
+
+void MainWindow::startCalibrate()
+{
+	mTranslator->startCalibrate();
+}
+
+void MainWindow::stopCalibrate()
+{
+	mTranslator->stopCalibrate();
+}
+
+void MainWindow::actionWidgetConnector()
+{
+	connect(mActionWidget, SIGNAL(startLoading(QString)), this, SLOT(startLoading(QString)));
+	connect(mActionWidget, SIGNAL(stopLoading()), this, SLOT(stopLoading()));
+
+	connect(mActionWidget, SIGNAL(startSaveing(QString,int)), this, SLOT(startSaveing(QString,int)));
+	connect(mActionWidget, SIGNAL(stopSaveing()), this, SLOT(stopSaveing()));
+}
+
+void MainWindow::calibratorWidgetConnector()
+{
+	connect(mCalibratorWidget, SIGNAL(startCalibrate()), this, SLOT(startCalibrate()));
+	connect(mCalibratorWidget, SIGNAL(stopCalibrate()), this, SLOT(stopCalibrate()));
 }

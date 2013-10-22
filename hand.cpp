@@ -32,14 +32,13 @@ Hand::~Hand()
 
 void Hand::connectHardwareHand()
 {
-	// do later
 }
 
 void Hand::startSendingData()
 {
 	mPort->open(QIODevice::ReadWrite);
 
-	QTimer::singleShot(1000, this, SLOT(setStartValues()));
+//	QTimer::singleShot(1000, this, SLOT(setStartValues()));
 
 	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
@@ -63,7 +62,7 @@ bool Hand::isPortSet()
 
 void Hand::moveMotor(const int &num, const int &value)
 {
-	qDebug() << num << " - " << value;
+	qDebug() << num << " " << value;
 
 	if (mPort->isOpen()) {
 		QString sendData;
@@ -109,6 +108,8 @@ void Hand::onReadyRead()
 void Hand::setPortSettings()
 {
 	mPort = new QSerialPort;
+
+	mPort->setPortName("ttyACM0");
 
 	mPort->setBaudRate(QSerialPort::Baud9600);
 	mPort->setDataBits(QSerialPort::Data8);

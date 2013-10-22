@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 #include "../action/actionWidget.h"
-#include "../../fileActionPerformer.h"
+#include "../calibrator/calibratorWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,14 +32,22 @@ protected slots:
 	void startSaveing(const QString &fileName, const int &freq);
 	void stopSaveing();
 
+	void startCalibrate();
+	void stopCalibrate();
+
+
 private:
+	void actionWidgetConnector();
+	void calibratorWidgetConnector();
+
 	Ui::MainWindow *ui;
 
 	Translator *mTranslator;
 
-	int i;
+	int mCurrWidget;
 
 	ActionWidget *mActionWidget;
+	CalibratorWidget *mCalibratorWidget;
 };
 
 #endif // MAINWINDOW_H

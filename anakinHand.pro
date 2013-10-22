@@ -22,13 +22,14 @@ SOURCES += main.cpp\
     gloveInterface.cpp \
     user.cpp \
     action.cpp \
-    calibrator.cpp \
     translator.cpp \
     handInterface.cpp \
     kalmanFilter.cpp \
     userFileSaver.cpp \
     userFileLoader.cpp \
-    fileActionPerformer.cpp
+    fileActionPerformer.cpp \
+    gloveCalibrator.cpp \
+    flexSensorCalibrator.cpp
 
 HEADERS  += \
 	actionSaver.h \
@@ -39,7 +40,6 @@ HEADERS  += \
     gloveInterface.h \
     user.h \
     action.h \
-    calibrator.h \
     translator.h \
     handInterface.h \
     consts.h \
@@ -48,7 +48,9 @@ HEADERS  += \
     userFileStructure.h \
     userFileSaver.h \
     userFileLoader.h \
-    fileActionPerformer.h
+    fileActionPerformer.h \
+    gloveCalibrator.h \
+    flexSensorCalibrator.h
 
 FORMS    +=
 

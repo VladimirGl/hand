@@ -6,7 +6,7 @@
 const QString separator = "#";
 
 namespace GloveConsts {
-const int numberOfSensors = 5;
+const int numberOfSensors = 10;
 const int header = 123456;
 }
 
@@ -16,7 +16,7 @@ const int max = 1023;
 }
 
 namespace HandConsts {
-const int numberOfMotors = 6;
+const int numberOfMotors = 10;
 const int motorMinValue = 0;
 const int motorMaxValue = 180;
 const int startMotorValue = motorMaxValue;

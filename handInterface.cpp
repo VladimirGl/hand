@@ -52,7 +52,7 @@ void HandInterface::moveMotor(const int &num, const int &value)
 
 void HandInterface::moveMotors(const QList<int> &data)
 {
-	qDebug() << "start";
+	qDebug() << data;
 
 	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
 		moveMotor(i, data.at(i));
