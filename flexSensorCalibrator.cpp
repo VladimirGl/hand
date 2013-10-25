@@ -2,13 +2,13 @@
 
 #include "consts.h"
 
-const int queueSize = 50;
+const int queueSize = 30;
 
 FlexSensorCalibrator::FlexSensorCalibrator() :
 	mSum(0),
 	mMean(0),
-	mMin(SensorsConsts::max),
 	mMax(SensorsConsts::min),
+	mMin(SensorsConsts::max),
 	mIsQueueFilled(false)
 {}
 

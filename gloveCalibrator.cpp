@@ -9,6 +9,10 @@ GloveCalibrator::GloveCalibrator() :
 
 void GloveCalibrator::startCalibrate()
 {
+	if (isCalibrateing) {
+		stopCalibrate();
+	}
+
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		FlexSensorCalibrator *temp = new FlexSensorCalibrator;
 

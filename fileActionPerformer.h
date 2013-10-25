@@ -18,9 +18,6 @@ public:
 
 	~FileActionPerformer();
 
-	bool hasSaver() const { return mSaver != NULL; }
-	bool hasLoader() const { return mLoader != NULL; }
-
 	bool isSaved() const { return mIsStartSave; }
 	bool isLoaded() const { return mIsStartLoad; }
 	bool isWork() const { return (isSaved() || isLoaded()); }
