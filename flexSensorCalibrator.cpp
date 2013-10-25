@@ -19,10 +19,6 @@ void FlexSensorCalibrator::addValue(const int &value)
 
 		if (mData.size() == queueSize) {
 			mIsQueueFilled = true;
-
-			for (int i = 0; i < queueSize; i++) {
-				mSum += mData.at(i);
-			}
 		}
 
 		return;
@@ -45,8 +41,15 @@ void FlexSensorCalibrator::mean()
 
 void FlexSensorCalibrator::sum(const int &value)
 {
-	mSum -= mData.head();
-	mSum += value;
+	if (mSum != 0) {
+		mSum -= mData.head();
+		mSum += value;
+		return;
+	}
+
+	for (int i = 0; i < queueSize; i++) {
+		mSum += mData.at(i);
+	}
 }
 
 void FlexSensorCalibrator::maxPerformer()

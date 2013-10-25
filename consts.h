@@ -5,9 +5,14 @@
 
 const QString separator = "#";
 
+namespace Consts {
+const QString noPort = "NO_PORT";
+}
+
 namespace GloveConsts {
 const int numberOfSensors = 1;
 const int header = 882111924;
+const int initializationNumber =719731018;
 }
 
 namespace SensorsConsts {

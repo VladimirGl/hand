@@ -156,6 +156,9 @@ void Translator::startCalibrate()
 
 void Translator::stopCalibrate()
 {
+	qDebug() << "max" << mGloveCalibrator->maxCalibratedList();
+	qDebug() << "min" << mGloveCalibrator->minCalibratedList();
+
 	mGloveCalibrator->stopCalibrate();
 
 	stopConnection();

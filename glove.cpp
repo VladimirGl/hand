@@ -7,6 +7,7 @@
 
 #include <inttypes.h>
 
+#include "deviceConnector.h"
 #include "consts.h"
 
 #include <QDebug>
@@ -31,14 +32,24 @@ Glove::~Glove()
 
 void Glove::connectHardwareGlove()
 {
-	// do later.
+	qDebug() << "tryconnect";
+//	QString portName = DeviceConnector::requiredPortName(GloveConsts::initializationNumber
+//			, QSerialPort::Baud115200);
+
+//	if (portName == Consts::noPort) {
+//		return;
+//	}
+
+//	qDebug() << "setName";
+
+//	mPort->setPortName(portName);
 }
 
 void Glove::startSendingData()
 {
-	mPort->open(QIODevice::ReadOnly);
+	mPort->open(QIODevice::ReadWrite);
 
-	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));\
 }
 
 void Glove::stopSendingData()
@@ -69,7 +80,9 @@ void Glove::onReadyRead()
 		return;
 	}
 
+
 	mBytes = mPort->readAll();
+	qDebug() << mBytes;
 
 	if (!hasHeader()) {
 		return;

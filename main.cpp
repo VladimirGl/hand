@@ -1,4 +1,4 @@
-#include "gui/mainGUI/mainwindow.h"
+#include "gui/mainwindow.h"
 #include <QApplication>
 
 #include "translator.h"
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	Translator *translator = new Translator;
 
 	translator->setConnectionType(noConnection);
-	translator->connectHand();
+//	translator->connectHand();
 	translator->connectGlove();
 
 	w.setTranslator(translator);

@@ -10,6 +10,7 @@ QT       += serialport \
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 include(gui/gui.pri)
+DEFINES += PRO_FILE_PWD=$$sprintf("\"\\\"%1\\\"\"", $$_PRO_FILE_PWD_)
 
 TARGET = anakinHand
 TEMPLATE = app
@@ -29,7 +30,8 @@ SOURCES += main.cpp\
     userFileLoader.cpp \
     fileActionPerformer.cpp \
     gloveCalibrator.cpp \
-    flexSensorCalibrator.cpp
+    flexSensorCalibrator.cpp \
+    deviceConnector.cpp
 
 HEADERS  += \
 	actionSaver.h \
@@ -50,8 +52,5 @@ HEADERS  += \
     userFileLoader.h \
     fileActionPerformer.h \
     gloveCalibrator.h \
-    flexSensorCalibrator.h
-
-FORMS    +=
-
-SUBDIRS +=
+    flexSensorCalibrator.h \
+    deviceConnector.h
