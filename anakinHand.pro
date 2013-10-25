@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += serialport \
+QT += serialport \
 	core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -19,36 +19,36 @@ SOURCES += main.cpp\
 	actionSaver.cpp \
 	actionLoader.cpp \
 	glove.cpp \
-    hand.cpp \
-    gloveInterface.cpp \
-    user.cpp \
-    action.cpp \
-    translator.cpp \
-    handInterface.cpp \
-    kalmanFilter.cpp \
-    userFileSaver.cpp \
-    userFileLoader.cpp \
-    fileActionPerformer.cpp \
-    gloveCalibrator.cpp \
-    flexSensorCalibrator.cpp
+	hand.cpp \
+	gloveInterface.cpp \
+	user.cpp \
+	action.cpp \
+	translator.cpp \
+	handInterface.cpp \
+	kalmanFilter.cpp \
+	userFileSaver.cpp \
+	userFileLoader.cpp \
+	fileActionPerformer.cpp \
+	gloveCalibrator.cpp \
+	flexSensorCalibrator.cpp
 
-HEADERS  += \
+HEADERS += \
 	actionSaver.h \
 	actionFileStructure.h \
 	actionLoader.h \
-    glove.h \
-    hand.h \
-    gloveInterface.h \
-    user.h \
-    action.h \
-    translator.h \
-    handInterface.h \
-    consts.h \
-    degreeOfFreedom.h \
-    kalmanFilter.h \
-    userFileStructure.h \
-    userFileSaver.h \
-    userFileLoader.h \
-    fileActionPerformer.h \
-    gloveCalibrator.h \
-    flexSensorCalibrator.h
+	glove.h \
+	hand.h \
+	gloveInterface.h \
+	user.h \
+	action.h \
+	translator.h \
+	handInterface.h \
+	consts.h \
+	degreeOfFreedom.h \
+	kalmanFilter.h \
+	userFileStructure.h \
+	userFileSaver.h \
+	userFileLoader.h \
+	fileActionPerformer.h \
+	gloveCalibrator.h \
+	flexSensorCalibrator.h
