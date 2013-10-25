@@ -108,12 +108,11 @@ void Translator::setConnectionType(const ConnectionType &type)
 
 void Translator::startLoadAction(const QString &fileName)
 {
-	setConnectionType(actionToHand);
-
 	if (mFileActionPerformer->isLoaded()) {
 		stopLoadAction();
 	}
 
+	setConnectionType(actionToHand);
 	mFileActionPerformer->startLoad(fileName);
 
 	if ((mFileActionPerformer->isFileCorrect())) {
@@ -127,7 +126,8 @@ void Translator::stopLoadAction()
 		return;
 	}
 
-	stopConnection();
+	setConnectionType(noConnection);
+
 	mFileActionPerformer->stopLoad();
 
 	emit loadingStoped();
@@ -139,11 +139,16 @@ void Translator::startSaveAction(const QString &fileName, const int &freq)
 		stopSaveAction();
 	}
 
+	setConnectionType(gloveToHand);
+	startConnection();
+
 	mFileActionPerformer->startSave(freq, GloveConsts::numberOfSensors, fileName);
 }
 
 void Translator::stopSaveAction()
 {
+	setConnectionType(noConnection);
+
 	mFileActionPerformer->stopSave();
 }
 

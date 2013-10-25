@@ -4,8 +4,6 @@
 #include <QDir>
 #include <QStringList>
 
-#include <QDebug>
-
 ActionWidget::ActionWidget(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::Action)

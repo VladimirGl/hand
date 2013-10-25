@@ -2,7 +2,7 @@
 
 #include "consts.h"
 
-const int queueSize = 30;
+const int queueSize = 50;
 
 FlexSensorCalibrator::FlexSensorCalibrator() :
 	mSum(0),

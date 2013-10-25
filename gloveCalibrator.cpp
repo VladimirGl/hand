@@ -3,8 +3,6 @@
 #include "flexSensorCalibrator.h"
 #include "consts.h"
 
-#include <QDebug>
-
 GloveCalibrator::GloveCalibrator() :
 	isCalibrateing(false)
 {}

@@ -7,10 +7,7 @@
 
 #include <inttypes.h>
 
-#include "deviceConnector.h"
 #include "consts.h"
-
-#include <QDebug>
 
 Glove::Glove()
 {
@@ -18,7 +15,7 @@ Glove::Glove()
 		mLastData.prepend(0);
 	}
 
-	setPortSettings();
+	mPort = new QSerialPort;
 }
 
 Glove::~Glove()
@@ -30,24 +27,18 @@ Glove::~Glove()
 	delete mPort;
 }
 
-void Glove::connectHardwareGlove()
+void Glove::connectHardwareGlove(const QString &portName)
 {
-	qDebug() << "tryconnect";
-//	QString portName = DeviceConnector::requiredPortName(GloveConsts::initializationNumber
-//			, QSerialPort::Baud115200);
-
-//	if (portName == Consts::noPort) {
-//		return;
-//	}
-
-//	qDebug() << "setName";
-
-//	mPort->setPortName(portName);
+	mPort->setPortName(portName);
 }
 
 void Glove::startSendingData()
 {
-	mPort->open(QIODevice::ReadWrite);
+	if (!mPort->open(QIODevice::ReadWrite)) {
+		return;
+	}
+
+	setPortSettings();
 
 	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));\
 }
@@ -80,9 +71,11 @@ void Glove::onReadyRead()
 		return;
 	}
 
-
 	mBytes = mPort->readAll();
-	qDebug() << mBytes;
+
+	if (mBytes.size() < (4 + 4 * GloveConsts::numberOfSensors)) {
+		return;
+	}
 
 	if (!hasHeader()) {
 		return;
@@ -125,10 +118,6 @@ void Glove::getDataFromFlexSensors()
 
 void Glove::setPortSettings()
 {
-	mPort = new QSerialPort;
-
-	mPort->setPortName("ttyACM0");
-
 	mPort->setBaudRate(QSerialPort::Baud115200);
 	mPort->setDataBits(QSerialPort::Data8);
 	mPort->setParity(QSerialPort::NoParity);

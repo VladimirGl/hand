@@ -2,8 +2,6 @@
 
 #include "glove.h"
 
-#include <QDebug>
-
 GloveInterface::GloveInterface() :
 	mGlove(new Glove)
 {
@@ -20,7 +18,7 @@ GloveInterface::~GloveInterface()
 
 void GloveInterface::setHardwareGlove()
 {
-	mGlove->connectHardwareGlove();
+	mGlove->connectHardwareGlove("ttyACM0");
 
 	if (isHardwareGloveSet()) {
 		QObject::connect(mGlove, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));

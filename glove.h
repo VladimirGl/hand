@@ -23,7 +23,7 @@ public:
 	~Glove();
 
 	/// Checks COM ports for the connected glove.
-	void connectHardwareGlove();
+	void connectHardwareGlove(const QString &portName);
 
 	/// Opens port.
 	void startSendingData();

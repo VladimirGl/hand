@@ -4,8 +4,6 @@
 
 #include "consts.h"
 
-#include <QDebug>
-
 HandInterface::HandInterface() :
 	mHand(new Hand)
 {
@@ -52,13 +50,9 @@ void HandInterface::moveMotor(const int &num, const int &value)
 
 void HandInterface::moveMotors(const QList<int> &data)
 {
-	qDebug() << data;
-
 	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
 		moveMotor(i, data.at(i));
 	}
-
-	qDebug() << "stop";
 }
 
 QList<int> *HandInterface::motorsDatas()
