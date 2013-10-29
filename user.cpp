@@ -5,11 +5,15 @@ void User::addDOF(const int &min, const int &max)
 	DegreeOfFreedom temp(min, max);
 
 	mFreedomList.append(temp);
+
+	mDOFListSize++;
 }
 
 void User::addSensorMotorConformity(const int &sensor, const int &motor)
 {
 	mSensorMotorConformityMap.insert(sensor, motor);
+
+	mConformityListSize++;
 }
 
 

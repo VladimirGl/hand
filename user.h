@@ -16,12 +16,17 @@
 class User
 {
 public:
-	User()
+	User() :
+		mDOFListSize(0),
+		mConformityListSize(0)
 	{}
 
 	void addDOF(const int &min, const int &max);
 	/// Adds new conformity of sensor and motor.
 	void addSensorMotorConformity(const int &sensor, const int &motor);
+
+	int DOFSize() const { return mDOFListSize; }
+	int conformitySize() const { return mConformityListSize; }
 
 	/**
 	 * Returns QList of motors, that match sensor with sensurNumber number.
@@ -35,6 +40,9 @@ public:
 private:
 	QList<DegreeOfFreedom> mFreedomList;
 	QMultiMap<int, int> mSensorMotorConformityMap;
+
+	int mDOFListSize;
+	int mConformityListSize;
 };
 
 #endif // USER_H

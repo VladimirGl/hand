@@ -33,6 +33,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
+	mTranslator->setConnectionType(gloveToHand);
+
+	mTranslator->startConnection();
+
 	if (mCurrWidget == 2) {
 		mCurrWidget = 3;
 	} else if (mCurrWidget == 3) {

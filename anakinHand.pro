@@ -30,7 +30,8 @@ SOURCES += main.cpp\
 	userFileLoader.cpp \
 	fileActionPerformer.cpp \
 	gloveCalibrator.cpp \
-	flexSensorCalibrator.cpp
+	flexSensorCalibrator.cpp \
+    fileUserPerfofmer.cpp
 
 HEADERS += \
 	actionSaver.h \
@@ -51,4 +52,5 @@ HEADERS += \
 	userFileLoader.h \
 	fileActionPerformer.h \
 	gloveCalibrator.h \
-	flexSensorCalibrator.h
+	flexSensorCalibrator.h \
+    fileUserPerfofmer.h

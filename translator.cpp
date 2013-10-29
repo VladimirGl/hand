@@ -19,6 +19,8 @@ Translator::Translator() :
 	mHandInterface(new HandInterface)
 {
 	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
+		mUser->addSensorMotorConformity(i, i);
+
 		mConvertedDatas.prepend(0);
 	}
 
@@ -164,6 +166,13 @@ void Translator::stopCalibrate()
 	qDebug() << "max" << mGloveCalibrator->maxCalibratedList();
 	qDebug() << "min" << mGloveCalibrator->minCalibratedList();
 
+	QList<int> maxList = mGloveCalibrator->maxCalibratedList();
+	QList<int> minList = mGloveCalibrator->minCalibratedList();
+
+	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
+		mUser->addDOF(minList.at(i), maxList.at(i));
+	}
+
 	mGloveCalibrator->stopCalibrate();
 
 	stopConnection();
@@ -245,7 +254,17 @@ int Translator::map(int const& value
 int Translator::map(int const& value
 			, int const& min, int const& max)
 {
-	return map(value, min, max, HandConsts::motorMinValue, HandConsts::motorMaxValue);
+	int val = map(value, min, max, HandConsts::motorMinValue, HandConsts::motorMaxValue);
+
+	if (val > HandConsts::motorMaxValue) {
+		val = HandConsts::motorMaxValue;
+	}
+
+	if (val < HandConsts::motorMinValue) {
+		val = HandConsts::motorMinValue;
+	}
+
+	return val;
 }
 
 

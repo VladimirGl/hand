@@ -25,8 +25,8 @@ public:
 	bool isFileCorrect() const { return mIsFileCorrect; }
 	bool isFileEnd() const { return mIsFileEnd; }
 
-	bool isDOFRead() const { return mIsDOFData; }
-	bool isConformityRead() const { return mIsConformityData; }
+	bool isDOFRead() const { return mIsDOFData && isFileCorrect(); }
+	bool isConformityRead() const { return mIsConformityData && isFileCorrect(); }
 
 	/// Returns QList of 2 elements, min and max values of DOF.
 	QList<int> DOFList();

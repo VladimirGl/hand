@@ -10,6 +10,8 @@
 
 #include "consts.h"
 
+#include <QDebug>
+
 Hand::Hand()
 {
 	for (int i = 0; i < HandConsts::numberOfMotors; i++) {
@@ -60,6 +62,8 @@ bool Hand::isPortSet()
 
 void Hand::moveMotor(const int &num, const int &value)
 {
+	qDebug() << num << " " << value;
+
 	if (mPort->isOpen()) {
 		QString sendData;
 
@@ -105,7 +109,7 @@ void Hand::setPortSettings()
 {
 	mPort = new QSerialPort;
 
-	mPort->setPortName("ttyACM0");
+//	mPort->setPortName("ttyACM0");
 
 	mPort->setBaudRate(QSerialPort::Baud9600);
 	mPort->setDataBits(QSerialPort::Data8);

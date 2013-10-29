@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	Translator *translator = new Translator;
 
 	translator->setConnectionType(noConnection);
-//	translator->connectHand();
+	translator->connectHand();
 	translator->connectGlove();
 
 	w.setTranslator(translator);
