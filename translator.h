@@ -13,6 +13,7 @@
 */
 
 class FileActionPerformer;
+class FileUserPerformer;
 class GloveInterface;
 class HandInterface;
 class User;
@@ -43,9 +44,9 @@ public:
 	void stopConnection();
 
 	/// Returns an list of the last read data.
-	QList<int> *sensorData() { return &mSensorDatas; }
+	QList<int> sensorData() { return mSensorDatas; }
 	/// Returns an list of the last converted to hand data.
-	QList<int> *convertedData() { return &mConvertedDatas; }
+	QList<int> convertedData() { return mConvertedDatas; }
 
 	/// Stops all connections, and set current connection type = type.
 	void setConnectionType(ConnectionType const& type);
@@ -77,6 +78,8 @@ protected slots:
 	void sendDataToCalibrator();
 
 signals:
+	/// Emited, when the translator recieves new data from the glove.
+	void dataIsRead();
 	void loadingStoped();
 
 protected:
@@ -101,6 +104,7 @@ private:
 	User *mUser;
 
 	FileActionPerformer *mFileActionPerformer;
+	FileUserPerformer *mFileUserPerformer;
 	GloveCalibrator *mGloveCalibrator;
 
 	GloveInterface *mGloveInterface;

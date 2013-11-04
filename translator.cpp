@@ -3,6 +3,7 @@
 #include "gloveInterface.h"
 #include "handInterface.h"
 #include "fileActionPerformer.h"
+#include "fileUserPerfofmer.h"
 #include "user.h"
 #include "gloveCalibrator.h"
 
@@ -14,6 +15,7 @@ Translator::Translator() :
 	mConnectionType(noConnection),
 	mUser(new User),
 	mFileActionPerformer(new FileActionPerformer),
+	mFileUserPerformer(new FileUserPerformer),
 	mGloveCalibrator(new GloveCalibrator),
 	mGloveInterface(new GloveInterface),
 	mHandInterface(new HandInterface)
@@ -199,6 +201,7 @@ void Translator::convertData()
 	}
 
 	saveSensorsData(mGloveInterface->gloveDatas());
+	emit dataIsRead();
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		QList<int> motorList = mUser->motorList(i);
