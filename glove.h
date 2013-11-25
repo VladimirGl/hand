@@ -31,24 +31,32 @@ public:
 	void stopSendingData();
 
 	/// Return true, if the port is open.
-	bool isDataSending();
+	bool isDataSending() const;
 	/// Returns true, if portName is set.
-	bool isPortSet();
+	bool isPortSet() const;
 
 	/// Returns the latest data from the sensors.
-	QList<int> data();
+	QList<int> data() const;
 
 signals:
 	/// Sent when the computer reads the correct data from the glove.
 	void dataIsRead();
 
+
+	void connectionTryEnd(const bool& isConnected);
+
 protected slots:
 	/// Checks the received data.
 	void onReadyRead();
 
+	/// Do all you need, if the try of connection failed.
+	void connectionTry();
+
 protected:
 	/// Returns true if bytes has a valid header.
 	bool hasHeader() const;
+	/// Returns true if bytes has a valid information about number of sensors.
+	bool hasNumberOfSensors();
 	/// Translates data about flex sensors from bytes to integer numbers.
 	void getDataFromFlexSensors();
 
@@ -60,6 +68,11 @@ private:
 	QList<int> mLastData;
 
 	QSerialPort *mPort;
+
+	int mNumberOfSensors;
+
+	bool mIsGloveSet;
+	bool mIsConnectionMode;
 };
 
 #endif // GLOVE_H

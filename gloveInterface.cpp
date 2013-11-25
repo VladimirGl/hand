@@ -16,9 +16,9 @@ GloveInterface::~GloveInterface()
 	delete mGlove;
 }
 
-void GloveInterface::setHardwareGlove()
+void GloveInterface::setHardwareGlove(const QString &portName)
 {
-	mGlove->connectHardwareGlove("ttyACM0");
+	mGlove->connectHardwareGlove(portName);
 
 	if (isHardwareGloveSet()) {
 		QObject::connect(mGlove, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));
@@ -27,8 +27,7 @@ void GloveInterface::setHardwareGlove()
 
 bool GloveInterface::isHardwareGloveSet()
 {
-//	return mGlove->isPortSet();
-	return true;
+	return mGlove->isPortSet();
 }
 
 void GloveInterface::startSendingDatas()

@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
 	translator->setConnectionType(noConnection);
 	translator->connectHand();
-	translator->connectGlove();
+//	translator->connectGlove();
 
 	w.setTranslator(translator);
 	

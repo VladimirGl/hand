@@ -37,9 +37,9 @@ Translator::~Translator()
 	delete mHandInterface;
 }
 
-bool Translator::connectGlove()
+bool Translator::connectGlove(const QString& portName)
 {
-	mGloveInterface->setHardwareGlove();
+	mGloveInterface->setHardwareGlove(portName);
 
 	return mGloveInterface->isHardwareGloveSet();
 }

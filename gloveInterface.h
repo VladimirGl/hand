@@ -21,7 +21,7 @@ public:
 	~GloveInterface();
 
 	/// Trying to connect mGlove with a real glove.
-	void setHardwareGlove();
+	void setHardwareGlove(const QString& portName);
 	/// Returns true if mGlove serial port set.
 	bool isHardwareGloveSet();
 
