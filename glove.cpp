@@ -24,7 +24,10 @@ const int finishByte = tailStartByte + tailBytes;
 Glove::Glove()
 {
 	mIsGloveSet = false;
+	mIsStartSendingData = false;
 	mIsConnectionMode = false;
+
+	mPortAvailableTimer = new QTimer(this);
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		mLastData.prepend(0);
@@ -44,8 +47,9 @@ Glove::~Glove()
 
 void Glove::connectHardwareGlove(const QString &portName)
 {
-	qDebug() << "try: " << portName;
+	stopSendingData();
 
+	mIsGloveSet = false;
 	mIsConnectionMode = true;
 
 	mPort->setPortName(portName);
@@ -54,20 +58,27 @@ void Glove::connectHardwareGlove(const QString &portName)
 	QTimer::singleShot(2000, this, SLOT(connectionTry()));
 }
 
-void Glove::startSendingData()
+bool Glove::startSendingData()
 {
 	if (!mPort->open(QIODevice::ReadWrite)) {
-		return;
+		return false;
 	}
 
 	setPortSettings();
 
-	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));\
+	mIsStartSendingData = true;
+
+	QObject::connect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+
+	return true;
 }
 
 void Glove::stopSendingData()
 {
 	QObject::disconnect(mPort, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+	QObject::disconnect(mPortAvailableTimer, SIGNAL(timeout()), this, SLOT(checkIsCanBeConnected()));
+
+	mIsStartSendingData = false;
 
 	mPort->close();
 }
@@ -89,27 +100,19 @@ QList<int> Glove::data() const
 
 void Glove::onReadyRead()
 {
-	qDebug() << "tryread";
-
 	if (!mPort->bytesAvailable()) {
 		return;
 	}
 
 	mBytes = mPort->readAll();
 
-	qDebug() << "rly";
-
 	if (mBytes.size() < (headerBytes + sensorDataBytes * GloveConsts::numberOfSensors + tailBytes)) {
 		return;
 	}
 
-	qDebug() << "not, rly?";
-
 	if (!hasHeader()) {
 		return;
 	}
-
-	qDebug() << "headerlol";
 
 	getDataFromFlexSensors();
 
@@ -134,6 +137,10 @@ void Glove::connectionTry()
 
 	if (mIsGloveSet) {
 		stopSendingData();
+
+		QObject::connect(mPortAvailableTimer, SIGNAL(timeout()), this, SLOT(checkIsCanBeConnected()));
+		mPortAvailableTimer->start(4000);
+
 		emit connectionTryEnd(true);
 
 		return;
@@ -141,6 +148,27 @@ void Glove::connectionTry()
 
 	stopSendingData();
 	emit connectionTryEnd(false);
+}
+
+void Glove::checkIsCanBeConnected()
+{
+	QList<QSerialPortInfo> list = QSerialPortInfo::availablePorts();
+
+	bool isPortAvailable = false;
+
+	for (int i = 0; i < list.size(); i++) {
+		if (list.at(i).portName() == mPort->portName()) {
+			isPortAvailable = true;
+		}
+	}
+
+	if (!isPortAvailable) {
+		if (mIsStartSendingData) {
+			stopSendingData();
+		}
+
+		mIsGloveSet = false;
+	}
 }
 
 bool Glove::hasHeader() const

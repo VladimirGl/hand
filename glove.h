@@ -14,6 +14,7 @@
 class QSerialPort;
 class QByteArray;
 class QString;
+class QTimer;
 
 class Glove : public QObject
 {
@@ -22,11 +23,11 @@ public:
 	Glove();
 	~Glove();
 
-	/// Checks COM ports for the connected glove.
+	/// Try to connect port with name = portName as glove.
 	void connectHardwareGlove(const QString &portName);
 
 	/// Opens port.
-	void startSendingData();
+	bool startSendingData();
 	/// Closes port.
 	void stopSendingData();
 
@@ -52,6 +53,9 @@ protected slots:
 	/// Do all you need, if the try of connection failed.
 	void connectionTry();
 
+	/// Checks if glove is connected.
+	void checkIsCanBeConnected();
+
 protected:
 	/// Returns true if bytes has a valid header.
 	bool hasHeader() const;
@@ -71,7 +75,10 @@ private:
 
 	QSerialPort *mPort;
 
+	QTimer *mPortAvailableTimer;
+
 	bool mIsGloveSet;
+	bool mIsStartSendingData;
 	bool mIsConnectionMode;
 };
 
