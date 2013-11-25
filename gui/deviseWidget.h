@@ -13,11 +13,6 @@ class DeviseWidget : public QWidget
 {
 	Q_OBJECT
 
-	enum Type {
-		Glove,
-		Hand
-	};
-
 public:
 	explicit DeviseWidget(QWidget *parent = 0);
 	~DeviseWidget();
@@ -32,6 +27,9 @@ signals:
 
 protected slots:
 	void fillPortList();
+
+	void gloveConnection();
+	void handConnection();
 
 private:
 	Ui::DeviseWidget *ui;
