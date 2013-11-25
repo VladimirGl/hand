@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QList>
 
+// TODO : Need one abstract class for all COM devises
+
 /**
 * @file glove.h
 *
