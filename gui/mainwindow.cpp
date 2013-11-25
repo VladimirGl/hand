@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 	actionWidgetConnector();
-	connect(mCalibratorWidget, SIGNAL(startCalibrate()), this, SLOT(startCalibrate()));
-	connect(mCalibratorWidget, SIGNAL(stopCalibrate()), this, SLOT(stopCalibrate()));
+	calibratorWidgetConnector();
+	deviseWidgetConnector();
 }
 
 MainWindow::~MainWindow()
@@ -39,14 +39,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
-	mTranslator->setConnectionType(gloveToHand);
-
-	mTranslator->startConnection();
-
 	if (mCurrWidget == 2) {
 		mCurrWidget = 3;
 	} else if (mCurrWidget == 3) {
-		mCurrWidget =2;
+		mCurrWidget = 4;
+	} else if (mCurrWidget == 4) {
+		mCurrWidget = 2;
 	}
 
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
@@ -88,6 +86,22 @@ void MainWindow::stopCalibrate()
 	mTranslator->stopCalibrate();
 }
 
+void MainWindow::connectGlove(const QString &portName)
+{
+	mTranslator->connectGlove(portName);
+}
+
+void MainWindow::connectHand(const QString &portName)
+{
+	mTranslator->connectHand(portName);
+}
+
+void MainWindow::updateDeviseInfo()
+{
+	mDeviseWidget->gloveConnection(mTranslator->isGloveConnected());
+	mDeviseWidget->handConnection(mTranslator->isHandConnected());
+}
+
 void MainWindow::actionWidgetConnector()
 {
 	connect(mActionWidget, SIGNAL(startLoading(QString)), this, SLOT(startLoading(QString)));
@@ -101,4 +115,12 @@ void MainWindow::calibratorWidgetConnector()
 {
 	connect(mCalibratorWidget, SIGNAL(startCalibrate()), this, SLOT(startCalibrate()));
 	connect(mCalibratorWidget, SIGNAL(stopCalibrate()), this, SLOT(stopCalibrate()));
+}
+
+void MainWindow::deviseWidgetConnector()
+{
+	connect(mDeviseWidget, SIGNAL(updateDeviseInfo()), this, SLOT(updateDeviseInfo()));
+
+	connect(mDeviseWidget, SIGNAL(tryGloveConnect(QString)), this, SLOT(connectGlove(QString)));
+	connect(mDeviseWidget, SIGNAL(tryHandConnect(QString)), this, SLOT(connectHand(QString)));
 }

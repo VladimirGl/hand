@@ -33,10 +33,15 @@ public:
 	Translator();
 	~Translator();
 
-	/// Try to connect hardware glove. Returns true, if the glove is successfully connected.
-	bool connectGlove(const QString &portName);
-	/// Try to connect hardware hand. Returns true, if the glove is successfully connected.
-	bool connectHand();
+	/// Try to connect hardware glove.
+	void connectGlove(const QString &portName);
+	/// Try to connect hardware hand.
+	void connectHand(const QString &portName);
+
+	/// Returns true, if the glove is connected.
+	bool isGloveConnected() const;
+	/// Returns true, if the glove is connected.
+	bool isHandConnected() const;
 
 	/// Esteblishes a connection of components, described in the current connection type.
 	void startConnection();

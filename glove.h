@@ -42,7 +42,7 @@ signals:
 	/// Sent when the computer reads the correct data from the glove.
 	void dataIsRead();
 
-
+	/// Sent after trying to connect. isConnected = true, if the devise is correctly connected.
 	void connectionTryEnd(const bool& isConnected);
 
 protected slots:

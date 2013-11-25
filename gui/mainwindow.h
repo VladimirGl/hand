@@ -36,10 +36,14 @@ protected slots:
 	void startCalibrate();
 	void stopCalibrate();
 
+	void connectGlove(const QString& portName);
+	void connectHand(const QString& portName);
+	void updateDeviseInfo();
 
 private:
 	void actionWidgetConnector();
 	void calibratorWidgetConnector();
+	void deviseWidgetConnector();
 
 	Ui::MainWindow *ui;
 

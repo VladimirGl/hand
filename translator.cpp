@@ -37,17 +37,23 @@ Translator::~Translator()
 	delete mHandInterface;
 }
 
-bool Translator::connectGlove(const QString& portName)
+void Translator::connectGlove(const QString& portName)
 {
 	mGloveInterface->setHardwareGlove(portName);
+}
 
+void Translator::connectHand(const QString& portName)
+{
+	mHandInterface->setHardwareHand(portName);
+}
+
+bool Translator::isGloveConnected() const
+{
 	return mGloveInterface->isHardwareGloveSet();
 }
 
-bool Translator::connectHand()
+bool Translator::isHandConnected() const
 {
-	mHandInterface->setHardwareHand();
-
 	return mHandInterface->isHardwareHandSet();
 }
 

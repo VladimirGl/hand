@@ -17,11 +17,12 @@ public:
 	explicit DeviseWidget(QWidget *parent = 0);
 	~DeviseWidget();
 
-public slots:
-	void gloveConnectionChanged(const bool& isConnected, const QString& comment);
-	void handConnectionChanged(const bool& isConnected, const QString& comment);
+	void gloveConnection(const bool& isConnected);
+	void handConnection(const bool& isConnected);
 
 signals:
+	void updateDeviseInfo();
+
 	void tryGloveConnect(const QString& port);
 	void tryHandConnect(const QString& port);
 

@@ -4,8 +4,6 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QList>
 
-#include <QDebug>
-
 DeviseWidget::DeviseWidget(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::DeviseWidget)
@@ -18,6 +16,8 @@ DeviseWidget::DeviseWidget(QWidget *parent) :
 	ui->isHandConnectedBox->setCheckable(false);
 
 	connect(ui->updateButton, SIGNAL(clicked()), this, SLOT(fillPortList()));
+	connect(ui->updateButton, SIGNAL(clicked()), this, SIGNAL(updateDeviseInfo()));
+
 	connect(ui->connectGloveButton, SIGNAL(clicked()), this, SLOT(gloveConnection()));
 	connect(ui->connectHandButton, SIGNAL(clicked()), this, SLOT(handConnection()));
 }
@@ -27,18 +27,14 @@ DeviseWidget::~DeviseWidget()
 	delete ui;
 }
 
-void DeviseWidget::gloveConnectionChanged(const bool &isConnected, const QString &comment)
+void DeviseWidget::gloveConnection(const bool &isConnected)
 {
 	ui->isGloveConnectedBox->setChecked(isConnected);
-
-	qDebug() << "Glove connection changed:" << comment;
 }
 
-void DeviseWidget::handConnectionChanged(const bool &isConnected, const QString &comment)
+void DeviseWidget::handConnection(const bool &isConnected)
 {
 	ui->isHandConnectedBox->setChecked(isConnected);
-
-	qDebug() << "Hand connection changed:" << comment;
 }
 
 void DeviseWidget::fillPortList()
