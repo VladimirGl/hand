@@ -21,7 +21,7 @@ public:
 	~HandInterface();
 
 	/// Trying to connect mHand with a real glove.
-	void setHardwareHand();
+	void setHardwareHand(const QString& portName);
 	/// Returns true if mHand serial port set.
 	bool isHardwareHandSet();
 

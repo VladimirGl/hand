@@ -18,9 +18,9 @@ HandInterface::~HandInterface()
 	delete mHand;
 }
 
-void HandInterface::setHardwareHand()
+void HandInterface::setHardwareHand(const QString &portName)
 {
-	mHand->connectHardwareHand();
+	mHand->connectHardwareHand(portName);
 
 	if (isHardwareHandSet()) {
 		QObject::connect(mHand, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));

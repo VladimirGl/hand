@@ -30,8 +30,9 @@ Hand::~Hand()
 	delete mPort;
 }
 
-void Hand::connectHardwareHand()
+void Hand::connectHardwareHand(const QString &portName)
 {
+	// TODO
 }
 
 void Hand::startSendingData()

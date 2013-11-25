@@ -22,7 +22,7 @@ public:
 	~Hand();
 
 	/// Checks COM ports for the connected hand.
-	void connectHardwareHand();
+	void connectHardwareHand(const QString& portName);
 
 	/// Opens port.
 	void startSendingData();

@@ -8,6 +8,8 @@
 
 #include <inttypes.h>
 
+#include <QDebug>
+
 #include "consts.h"
 
 const int startByte = 0;
@@ -42,12 +44,14 @@ Glove::~Glove()
 
 void Glove::connectHardwareGlove(const QString &portName)
 {
+	qDebug() << "try: " << portName;
+
 	mIsConnectionMode = true;
 
 	mPort->setPortName(portName);
 	startSendingData();
 
-	QTimer::singleShot(1000, this, SLOT(connectionTry()));
+	QTimer::singleShot(2000, this, SLOT(connectionTry()));
 }
 
 void Glove::startSendingData()
@@ -85,21 +89,27 @@ QList<int> Glove::data() const
 
 void Glove::onReadyRead()
 {
+	qDebug() << "tryread";
+
 	if (!mPort->bytesAvailable()) {
 		return;
 	}
 
 	mBytes = mPort->readAll();
 
-	if (mIsGloveSet) {
-		if (mBytes.size() < (headerBytes + sensorDataBytes * GloveConsts::numberOfSensors + tailBytes)) {
-			return;
-		}
+	qDebug() << "rly";
+
+	if (mBytes.size() < (headerBytes + sensorDataBytes * GloveConsts::numberOfSensors + tailBytes)) {
+		return;
 	}
+
+	qDebug() << "not, rly?";
 
 	if (!hasHeader()) {
 		return;
 	}
+
+	qDebug() << "headerlol";
 
 	getDataFromFlexSensors();
 
@@ -118,6 +128,8 @@ void Glove::onReadyRead()
 
 void Glove::connectionTry()
 {
+	qDebug() << "trynext: " << mIsGloveSet;
+
 	mIsConnectionMode = false;
 
 	if (mIsGloveSet) {
