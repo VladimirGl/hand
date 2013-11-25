@@ -10,19 +10,21 @@
 
 #include "consts.h"
 
+const int startByte = 0;
+
 const int headerBytes = 4;
-const int numberOfSensorsBytes = 4;
+const int tailBytes = 4;
 const int sensorDataBytes = 4;
 
-const int workBytes = headerBytes + numberOfSensorsBytes;
+const int tailStartByte = headerBytes + sensorDataBytes * GloveConsts::numberOfSensors;
+const int finishByte = tailStartByte + tailBytes;
 
 Glove::Glove()
 {
 	mIsGloveSet = false;
 	mIsConnectionMode = false;
-	mNumberOfSensors = 1;
 
-	for (int i = 0; i < mNumberOfSensors; i++) {
+	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		mLastData.prepend(0);
 	}
 
@@ -90,7 +92,7 @@ void Glove::onReadyRead()
 	mBytes = mPort->readAll();
 
 	if (mIsGloveSet) {
-		if (mBytes.size() < (workBytes + sensorDataBytes * mNumberOfSensors)) {
+		if (mBytes.size() < (headerBytes + sensorDataBytes * GloveConsts::numberOfSensors + tailBytes)) {
 			return;
 		}
 	}
@@ -99,11 +101,11 @@ void Glove::onReadyRead()
 		return;
 	}
 
-	if (!hasNumberOfSensors()) {
+	getDataFromFlexSensors();
+
+	if (!hasTail()) {
 		return;
 	}
-
-	getDataFromFlexSensors();
 
 	if (!mIsGloveSet) {
 		mIsGloveSet = true;
@@ -133,36 +135,28 @@ bool Glove::hasHeader() const
 {
 	union {
 		char chars[headerBytes];
-		uint32_t header;
+		uint32_t value;
 	} head;
 
-	for (int i = 0; i < headerBytes; i++) {
+	for (int i = startByte; i < headerBytes; i++) {
 		head.chars[i] = mBytes[i];
 	}
 
-	return ((int)head.header == GloveConsts::header);
+	return ((int)head.value == GloveConsts::header);
 }
 
-bool Glove::hasNumberOfSensors()
+bool Glove::hasTail() const
 {
 	union {
-		char chars[numberOfSensorsBytes];
-		uint32_t number;
-	} sensors;
+		char chars[headerBytes];
+		uint32_t value;
+	} tail;
 
-	for (int i = headerBytes; i < workBytes; i++) {
-		sensors.chars[i - headerBytes] = mBytes[i];
+	for (int i = tailStartByte; i < finishByte; i++) {
+		tail.chars[i - tailStartByte] = mBytes[i];
 	}
 
-	if (sensors.number >= 0) {
-		if (!mIsGloveSet) {
-			mNumberOfSensors = (int)sensors.number;
-		}
-
-		return true;
-	}
-
-	return false;
+	return ((int)tail.value == GloveConsts::tail);
 }
 
 void Glove::getDataFromFlexSensors()
@@ -172,11 +166,11 @@ void Glove::getDataFromFlexSensors()
 		uint32_t vals[GloveConsts::numberOfSensors];
 	} fingers;
 
-	for (int i = workBytes; i < mNumberOfSensors * sensorDataBytes + workBytes; i++) {
-		fingers.chars[i - workBytes] = mBytes[i];
+	for (int i = headerBytes; i < GloveConsts::numberOfSensors * sensorDataBytes + headerBytes; i++) {
+		fingers.chars[i - headerBytes] = mBytes[i];
 	}
 
-	for (int i = 0; i < mNumberOfSensors; i++) {
+	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		mLastData[i] = (int)fingers.vals[i];
 	}
 }

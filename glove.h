@@ -55,8 +55,10 @@ protected slots:
 protected:
 	/// Returns true if bytes has a valid header.
 	bool hasHeader() const;
-	/// Returns true if bytes has a valid information about number of sensors.
-	bool hasNumberOfSensors();
+
+	/// Returns true if bytes has a valid tail.
+	bool hasTail() const;
+
 	/// Translates data about flex sensors from bytes to integer numbers.
 	void getDataFromFlexSensors();
 
@@ -68,8 +70,6 @@ private:
 	QList<int> mLastData;
 
 	QSerialPort *mPort;
-
-	int mNumberOfSensors;
 
 	bool mIsGloveSet;
 	bool mIsConnectionMode;
