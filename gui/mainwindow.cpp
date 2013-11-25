@@ -11,11 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	mActionWidget = new ActionWidget;
 	mCalibratorWidget = new CalibratorWidget;
+	mDeviseWidget = new DeviseWidget;
 
-	mCurrWidget = 3;
+	mCurrWidget = 4;
 
 	ui->stackedWidget->addWidget(mActionWidget);
 	ui->stackedWidget->addWidget(mCalibratorWidget);
+	ui->stackedWidget->addWidget(mDeviseWidget);
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
 
 	connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
@@ -29,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 	delete ui;
+
+	delete mActionWidget;
+	delete mCalibratorWidget;
+	delete mDeviseWidget;
 }
 
 void MainWindow::buttonClicked()

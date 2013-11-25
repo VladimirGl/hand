@@ -5,6 +5,7 @@
 
 #include "actionWidget.h"
 #include "calibratorWidget.h"
+#include "deviseWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,6 +49,7 @@ private:
 
 	ActionWidget *mActionWidget;
 	CalibratorWidget *mCalibratorWidget;
+	DeviseWidget *mDeviseWidget;
 };
 
 #endif // MAINWINDOW_H
