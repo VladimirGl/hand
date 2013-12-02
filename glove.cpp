@@ -60,7 +60,7 @@ void Glove::connectHardwareGlove(const QString &portName)
 
 bool Glove::startSendingData()
 {
-	if (!mPort->open(QIODevice::ReadWrite)) {
+	if (!mPort->open(QIODevice::ReadOnly)) {
 		return false;
 	}
 

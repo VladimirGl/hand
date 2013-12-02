@@ -3,7 +3,8 @@
 #include "glove.h"
 
 GloveInterface::GloveInterface() :
-	mGlove(new Glove)
+	mGlove(new Glove),
+	mIsConnected(false)
 {
 }
 
@@ -19,10 +20,6 @@ GloveInterface::~GloveInterface()
 void GloveInterface::setHardwareGlove(const QString &portName)
 {
 	mGlove->connectHardwareGlove(portName);
-
-	if (isHardwareGloveSet()) {
-		QObject::connect(mGlove, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));
-	}
 }
 
 bool GloveInterface::isHardwareGloveSet()
@@ -32,11 +29,19 @@ bool GloveInterface::isHardwareGloveSet()
 
 void GloveInterface::startSendingDatas()
 {
+	if (isHardwareGloveSet()) {
+		QObject::connect(mGlove, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));
+	}
+
 	mGlove->startSendingData();
 }
 
 void GloveInterface::stopSendingDatas()
 {
+	if (isHardwareGloveSet()) {
+		QObject::connect(mGlove, SIGNAL(dataIsRead()), this, SIGNAL(dataIsRead()));
+	}
+
 	mGlove->stopSendingData();
 }
 

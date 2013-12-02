@@ -76,9 +76,10 @@ void Translator::startConnection()
 		break;
 	}
 	case calibrate: {
+
 		mGloveInterface->startSendingDatas();
 		mGloveCalibrator->startCalibrate();
-		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
+		connect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
 		connect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
 	}
 	}
@@ -103,7 +104,7 @@ void Translator::stopConnection()
 	}
 	case calibrate: {
 		mGloveInterface->stopSendingDatas();
-		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(sendDataToCalibrator()));
+		disconnect(mGloveInterface, SIGNAL(dataIsRead()), this, SLOT(convertData()));
 		disconnect(mGloveCalibrator, SIGNAL(calibrated()), this, SLOT(stopCalibrate()));
 		break;
 	}
@@ -113,6 +114,7 @@ void Translator::stopConnection()
 QList<int> Translator::sensorsMin() const
 {
 	if (mConnectionType == calibrate) {
+
 		return mGloveCalibrator->minCalibratedList();
 	}
 
@@ -226,7 +228,14 @@ void Translator::convertData()
 	}
 
 	saveSensorsData(mGloveInterface->gloveDatas());
+
+	if (mConnectionType == calibrate) {
+		sendDataToCalibrator();
+		return;
+	}
+
 	emit dataIsRead();
+
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		QList<int> motorList = mUser->motorList(i);

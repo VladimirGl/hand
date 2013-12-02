@@ -3,6 +3,8 @@
 
 #include "calibratorScene.h"
 
+#include <QDebug>
+
 CalibratorWidget::CalibratorWidget(const int& numOfCalibrated, QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::CalibratorWidget)
@@ -22,5 +24,7 @@ CalibratorWidget::~CalibratorWidget()
 
 void CalibratorWidget::setData(const QList<int> &mins, const QList<int> &maxs, const QList<int> &values)
 {
+	qDebug() << values;
+
 	static_cast<CalibratorScene *> (ui->graphicsView->scene())->setData(mins, maxs, values);
 }

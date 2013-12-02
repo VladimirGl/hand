@@ -7,16 +7,14 @@
 #include <QBrush>
 #include <QPen>
 
+#include <QDebug>
+
 CalibrateRectItem::CalibrateRectItem() :
 	mMinLine(new QGraphicsLineItem(0, 0, CalibrateRect::rectW, 0, this)),
 	mMaxLine(new QGraphicsLineItem(0, 0, CalibrateRect::rectW, 0, this)),
 	mCurrValueRect(new QGraphicsRectItem(0, 0, CalibrateRect::rectW, 0, this))
 {
 	this->setRect(0, 0, CalibrateRect::rectW, CalibrateRect::rectH);
-
-	mMinLine = new QGraphicsLineItem(0, 0, CalibrateRect::rectW, 0);
-	mMaxLine = new QGraphicsLineItem(0, 0, CalibrateRect::rectW, 0);
-	mCurrValueRect = new QGraphicsRectItem(0, 0, CalibrateRect::rectW, 0);
 
 	QBrush brush;
 	brush.setStyle(Qt::SolidPattern);
@@ -35,19 +33,21 @@ CalibrateRectItem::CalibrateRectItem() :
 void CalibrateRectItem::setCalibrateingData(const int &min, const int &max, const int &value)
 {
 	mMinLine->setPos(0
-			, Map::map(min
-					, CalibrateRect::min
-					, CalibrateRect::max
-					, 0
-					, CalibrateRect::rectH)
+			, CalibrateRect::rectH
+					 - Map::map(min
+							, CalibrateRect::min
+							, CalibrateRect::max
+							, 0
+							, CalibrateRect::rectH)
 			);
 
 	mMaxLine->setPos(0
-			, Map::map(max
-					, CalibrateRect::min
-					, CalibrateRect::max
-					, 0
-					, CalibrateRect::rectH)
+			, CalibrateRect::rectH
+					 - Map::map(max
+							, CalibrateRect::min
+							, CalibrateRect::max
+							, 0
+							, CalibrateRect::rectH)
 			);
 
 	int y = Map::map(value
@@ -57,9 +57,9 @@ void CalibrateRectItem::setCalibrateingData(const int &min, const int &max, cons
 			, CalibrateRect::rectH);
 
 	mCurrValueRect->setRect(0
-			, y
-			, CalibrateRect::rectW
 			, CalibrateRect::rectH - y
+			, CalibrateRect::rectW
+			, y
 			);
 }
 

@@ -21,6 +21,8 @@ CalibratorScene::CalibratorScene(const int &numOfCalibrated, QObject *parent) :
 
 void CalibratorScene::setData(const QList<int> &mins, const QList<int> &maxs, const QList<int> &values)
 {
+	qDebug() << values;
+
 	if (mins.size() != mList.size()) {
 		qDebug() << "bad data try to load to calibrator widget";
 		return;

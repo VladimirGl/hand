@@ -38,6 +38,8 @@ signals:
 
 private:
 	Glove *mGlove;
+
+	bool mIsConnected;
 };
 
 #endif // GLOVEINTERFACE_H

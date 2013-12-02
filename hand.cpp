@@ -95,8 +95,6 @@ bool Hand::isPortSet() const
 
 void Hand::moveMotor(const int &num, const int &value)
 {
-	qDebug() << num << " " << value;
-
 	if (mPort->isOpen()) {
 		QString sendData;
 
@@ -154,8 +152,6 @@ void Hand::onReadyRead()
 
 void Hand::connectionTry()
 {
-	qDebug() << "trynextHand: " << mIsHandSet;
-
 	mIsConnectionMode = false;
 
 	if (mIsHandSet) {

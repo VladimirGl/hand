@@ -3,6 +3,8 @@
 #include "flexSensorCalibrator.h"
 #include "consts.h"
 
+#include <QDebug>
+
 GloveCalibrator::GloveCalibrator() :
 	isCalibrateing(false)
 {}
@@ -40,16 +42,20 @@ void GloveCalibrator::writeData(const QList<int> &data)
 		return;
 	}
 
-	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
+	for (int i = 0; i < mFlexCalibrators.size(); i++) {
 		mFlexCalibrators.at(i)->addValue(data.at(i));
 	}
 }
 
 QList<int> GloveCalibrator::minCalibratedList()
 {
+	if (!isCalibrateing) {
+		return QList<int>();
+	}
+
 	QList<int> minList;
 
-	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
+	for (int i = 0; i < mFlexCalibrators.size(); i++) {
 		minList.append(mFlexCalibrators.at(i)->min());
 	}
 
@@ -58,9 +64,13 @@ QList<int> GloveCalibrator::minCalibratedList()
 
 QList<int> GloveCalibrator::maxCalibratedList()
 {
+	if (!isCalibrateing) {
+		return QList<int>();
+	}
+
 	QList<int> maxList;
 
-	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
+	for (int i = 0; i < mFlexCalibrators.size(); i++) {
 		maxList.append(mFlexCalibrators.at(i)->max());
 	}
 
