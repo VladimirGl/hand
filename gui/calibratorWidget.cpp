@@ -24,7 +24,7 @@ CalibratorWidget::~CalibratorWidget()
 
 void CalibratorWidget::setData(const QList<int> &mins, const QList<int> &maxs, const QList<int> &values)
 {
-	qDebug() << values;
+	qDebug() << values << "axawas";
 
 	static_cast<CalibratorScene *> (ui->graphicsView->scene())->setData(mins, maxs, values);
 }

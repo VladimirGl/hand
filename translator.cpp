@@ -109,6 +109,8 @@ void Translator::stopConnection()
 		break;
 	}
 	}
+
+	mConnectionType = noConnection;
 }
 
 QList<int> Translator::sensorsMin() const
@@ -198,7 +200,8 @@ void Translator::stopCalibrate()
 	QList<int> maxList = mGloveCalibrator->maxCalibratedList();
 	QList<int> minList = mGloveCalibrator->minCalibratedList();
 
-	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
+	for (int i = 0; i < GloveConsts::numberOfSensors
+			&& i < maxList.size() && i < minList.size(); i++) {
 		mUser->addDOF(minList.at(i), maxList.at(i));
 	}
 
@@ -235,7 +238,6 @@ void Translator::convertData()
 	}
 
 	emit dataIsRead();
-
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		QList<int> motorList = mUser->motorList(i);
@@ -293,5 +295,3 @@ int Translator::map(int const& value
 
 	return val;
 }
-
-
