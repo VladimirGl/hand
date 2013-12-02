@@ -10,7 +10,7 @@ const QString noPort = "NO_PORT";
 }
 
 namespace GloveConsts {
-const int numberOfSensors = 1;
+const int numberOfSensors = 6;
 const int header = 882111924;
 const int tail = 719731018;
 }

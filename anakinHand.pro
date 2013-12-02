@@ -53,4 +53,5 @@ HEADERS += \
 	fileActionPerformer.h \
 	gloveCalibrator.h \
 	flexSensorCalibrator.h \
-    fileUserPerfofmer.h
+    fileUserPerfofmer.h \
+    map.h

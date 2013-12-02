@@ -11,7 +11,7 @@
 class DegreeOfFreedom
 {
 public:
-	DegreeOfFreedom(int newMin, int newMax) :
+	DegreeOfFreedom(int const& newMin, int const& newMax) :
 		mMinimum(newMin),
 		mMaximum(newMax)
 	{}
@@ -25,6 +25,21 @@ public:
 private:
 	int mMinimum;
 	int mMaximum;
+};
+
+class SensorState : public DegreeOfFreedom
+{
+	SensorState(int const& newMin, int const& newMax) :
+		DegreeOfFreedom(newMin, newMax),
+		mCurrent(0)
+	{}
+
+	void setCurr(int const& newCurr) { mCurrent = newCurr; }
+
+	int curr() const { return mCurrent; }
+
+private:
+	int mCurrent;
 };
 
 #endif // DEGREEOFFREEDOM_H

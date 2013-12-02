@@ -53,6 +53,11 @@ public:
 	/// Returns an list of the last converted to hand data.
 	QList<int> convertedData() { return mConvertedDatas; }
 
+	QList<int> sensorsMin() const;
+	QList<int> sensorsMax() const;
+
+	bool isCalibrateing() const { return mConnectionType == calibrate; }
+
 	/// Stops all connections, and set current connection type = type.
 	void setConnectionType(ConnectionType const& type);
 	/// Return current connection type.
@@ -90,10 +95,6 @@ signals:
 protected:
 	void saveConvertedData(QList<int> const& data);
 	void saveSensorsData(QList<int> const& data);
-
-	int map(int const& value
-			, int const& firstMin, int const& firstMax
-			, int const& secondMin, int const& secondMax);
 
 	int map(int const& value
 			, int const& min, int const& max);

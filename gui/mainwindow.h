@@ -40,7 +40,15 @@ protected slots:
 	void connectHand(const QString& portName);
 	void updateDeviseInfo();
 
+	void updater();
+
 private:
+	enum Widgets {
+		action = 2,
+		calibrator,
+		devise
+	};
+
 	void actionWidgetConnector();
 	void calibratorWidgetConnector();
 	void deviseWidgetConnector();

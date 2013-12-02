@@ -6,6 +6,7 @@
 #include "fileUserPerfofmer.h"
 #include "user.h"
 #include "gloveCalibrator.h"
+#include "map.h"
 
 #include "consts.h"
 
@@ -107,6 +108,24 @@ void Translator::stopConnection()
 		break;
 	}
 	}
+}
+
+QList<int> Translator::sensorsMin() const
+{
+	if (mConnectionType == calibrate) {
+		return mGloveCalibrator->minCalibratedList();
+	}
+
+	return QList<int>();
+}
+
+QList<int> Translator::sensorsMax() const
+{
+	if (mConnectionType == calibrate) {
+		return mGloveCalibrator->maxCalibratedList();
+	}
+
+	return QList<int>();
 }
 
 void Translator::setConnectionType(const ConnectionType &type)
@@ -251,19 +270,9 @@ void Translator::saveSensorsData(QList<int> const& data)
 }
 
 int Translator::map(int const& value
-		, int const& firstMin, int const& firstMax
-		, int const& secondMin, int const& secondMax)
-{
-	return (((value - firstMin)
-			* (secondMax - secondMin)
-			/ (firstMax - firstMin))
-			+ secondMin);
-}
-
-int Translator::map(int const& value
 			, int const& min, int const& max)
 {
-	int val = map(value, min, max, HandConsts::motorMinValue, HandConsts::motorMaxValue);
+	int val = Map::map(value, min, max, HandConsts::motorMinValue, HandConsts::motorMaxValue);
 
 	if (val > HandConsts::motorMaxValue) {
 		val = HandConsts::motorMaxValue;

@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 
 #include "../translator.h"
+#include "../consts.h"
+
+#include <QTimer>
 
 #include <QDebug>
 
@@ -11,11 +14,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 
+	QTimer *timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(updater()));
+	timer->start(1000 / 33);
+
 	mActionWidget = new ActionWidget;
-	mCalibratorWidget = new CalibratorWidget;
+	mCalibratorWidget = new CalibratorWidget(GloveConsts::numberOfSensors);
 	mDeviseWidget = new DeviseWidget;
 
-	mCurrWidget = 4;
+	mCurrWidget = devise;
 
 	ui->stackedWidget->addWidget(mActionWidget);
 	ui->stackedWidget->addWidget(mCalibratorWidget);
@@ -23,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
 
 	connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-
 
 	actionWidgetConnector();
 	calibratorWidgetConnector();
@@ -41,12 +47,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
-	if (mCurrWidget == 2) {
-		mCurrWidget = 3;
-	} else if (mCurrWidget == 3) {
-		mCurrWidget = 4;
-	} else if (mCurrWidget == 4) {
-		mCurrWidget = 2;
+	if (mCurrWidget == action) {
+		mCurrWidget = calibrator;
+	} else if (mCurrWidget == calibrator) {
+		mCurrWidget = devise;
+	} else if (mCurrWidget == devise) {
+		mCurrWidget = action;
 	}
 
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
@@ -102,6 +108,30 @@ void MainWindow::updateDeviseInfo()
 {
 	mDeviseWidget->gloveConnection(mTranslator->isGloveConnected());
 	mDeviseWidget->handConnection(mTranslator->isHandConnected());
+}
+
+void MainWindow::updater()
+{
+	switch (mCurrWidget)
+	{
+	case action :
+	{
+		break;
+	}
+	case calibrator :
+	{
+		if (!mTranslator->isCalibrateing()) {
+			break;
+		}
+
+		mCalibratorWidget->setData(mTranslator->sensorsMin(), mTranslator->sensorsMax(), mTranslator->sensorData());
+		break;
+	}
+	case devise :
+	{
+		break;
+	}
+	}
 }
 
 void MainWindow::actionWidgetConnector()
