@@ -14,8 +14,8 @@ DeviseWidget::DeviseWidget(QWidget *parent) :
 
 	fillPortList();
 
-//	ui->isGloveConnectedBox->setCheckable(false);
-	ui->isHandConnectedBox->setCheckable(false);
+/*	ui->isGloveConnectedBox->setCheckable(false);
+	ui->isHandConnectedBox->setCheckable(false);*/
 
 	connect(ui->updateButton, SIGNAL(clicked()), this, SLOT(fillPortList()));
 	connect(ui->updateButton, SIGNAL(clicked()), this, SIGNAL(updateDeviseInfo()));
@@ -31,7 +31,6 @@ DeviseWidget::~DeviseWidget()
 
 void DeviseWidget::gloveConnection(const bool &isConnected)
 {
-
 	ui->isGloveConnectedBox->setChecked(isConnected);
 }
 
@@ -48,7 +47,7 @@ void DeviseWidget::fillPortList()
 
 	for (int i = 0; i < list.size(); i++) {
 		QString name = list.at(i).portName();
-		if (name.contains("ttyACM")) {
+		if (name.contains("COM") || name.contains("ttyACM")) {
 			mPortsList.append(name);
 		}
 	}

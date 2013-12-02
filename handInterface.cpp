@@ -29,8 +29,7 @@ void HandInterface::setHardwareHand(const QString &portName)
 
 bool HandInterface::isHardwareHandSet()
 {
-//	return mHand->isPortSet();
-	return true;
+	return mHand->isPortSet();
 }
 
 void HandInterface::startSendingDatas()
@@ -55,7 +54,7 @@ void HandInterface::moveMotors(const QList<int> &data)
 	}
 }
 
-QList<int> *HandInterface::motorsDatas()
+QList<int> HandInterface::motorsDatas()
 {
 	return mHand->currentPosition();
 }

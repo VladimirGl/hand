@@ -26,6 +26,7 @@ const int motorMinValue = 0;
 const int motorMaxValue = 180;
 const int startMotorValue = motorMaxValue;
 const int header = 789123;
+const int tail = 234732036;
 }
 
 #endif // CONSTS_H

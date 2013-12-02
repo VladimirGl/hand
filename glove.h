@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QList>
 
-// TODO : Need one abstract class for all COM devises
-
 /**
 * @file glove.h
 *
@@ -26,7 +24,7 @@ public:
 	~Glove();
 
 	/// Try to connect port with name = portName as glove.
-	void connectHardwareGlove(const QString &portName);
+	void connectHardwareGlove(const QString& portName);
 
 	/// Opens port.
 	bool startSendingData();
