@@ -131,7 +131,7 @@ void Glove::onReadyRead()
 
 void Glove::connectionTry()
 {
-	qDebug() << "trynext: " << mIsGloveSet;
+	qDebug() << "trynextGlove: " << mIsGloveSet;
 
 	mIsConnectionMode = false;
 
@@ -188,7 +188,7 @@ bool Glove::hasHeader() const
 bool Glove::hasTail() const
 {
 	union {
-		char chars[headerBytes];
+		char chars[tailBytes];
 		uint32_t value;
 	} tail;
 

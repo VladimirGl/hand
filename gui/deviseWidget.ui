@@ -14,6 +14,9 @@
    <string>DeviseWidget</string>
   </property>
   <widget class="QCheckBox" name="isGloveConnectedBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -27,6 +30,9 @@
    </property>
   </widget>
   <widget class="QCheckBox" name="isHandConnectedBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>50</x>

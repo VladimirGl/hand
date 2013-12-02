@@ -35,7 +35,7 @@ public:
 	/// Request hardware hand to move all motors.
 	void moveMotors(QList<int> const& data);
 	/// Returns last datas from the servos.
-	QList<int> *motorsDatas();
+	QList<int> motorsDatas();
 
 signals:
 	/// Re emits the signal of the glove.
