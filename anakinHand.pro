@@ -15,6 +15,9 @@ DEFINES += PRO_FILE_PWD=$$sprintf("\"\\\"%1\\\"\"", $$_PRO_FILE_PWD_)
 TARGET = anakinHand
 TEMPLATE = app
 
+INCLUDEPATH += C:/Qt/qwt-6.1.0/qwt-6.1.0/src
+LIBS += -LC:/Qt/qwt-6.1.0/qwt-6.1.0/lib -lqwtd
+
 SOURCES += main.cpp\
 	actionSaver.cpp \
 	actionLoader.cpp \

@@ -21,12 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	mActionWidget = new ActionWidget;
 	mCalibratorWidget = new CalibratorWidget(GloveConsts::numberOfSensors);
 	mDeviseWidget = new DeviseWidget;
+	mGraphicalWidget = new GraphicalWidget(GloveConsts::numberOfSensors);
 
 	mCurrWidget = devise;
 
 	ui->stackedWidget->addWidget(mActionWidget);
 	ui->stackedWidget->addWidget(mCalibratorWidget);
 	ui->stackedWidget->addWidget(mDeviseWidget);
+	ui->stackedWidget->addWidget(mGraphicalWidget);
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
 
 	connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(buttonClicked()));
@@ -47,12 +49,28 @@ MainWindow::~MainWindow()
 
 void MainWindow::buttonClicked()
 {
-	if (mCurrWidget == action) {
+	switch (mCurrWidget)
+	{
+	case action :
+	{
 		mCurrWidget = calibrator;
-	} else if (mCurrWidget == calibrator) {
+		break;
+	}
+	case calibrator :
+	{
+		mCurrWidget = graphical;
+		break;
+	}
+	case graphical :
+	{
 		mCurrWidget = devise;
-	} else if (mCurrWidget == devise) {
+		break;
+	}
+	case devise :
+	{
 		mCurrWidget = action;
+		break;
+	}
 	}
 
 	ui->stackedWidget->setCurrentIndex(mCurrWidget);
@@ -73,14 +91,14 @@ void MainWindow::stopLoading()
 	mTranslator->stopLoadAction();
 }
 
-void MainWindow::startSaveing(const QString &fileName, const int &freq)
+void MainWindow::startSaving(const QString &fileName, const int &freq)
 {
 	mTranslator->startSaveAction(fileName, freq);
 }
 
-void MainWindow::stopSaveing()
+void MainWindow::stopSaving()
 {
-	mActionWidget->saveingEnd();
+	mActionWidget->savingEnd();
 	mTranslator->stopSaveAction();
 }
 
@@ -139,8 +157,8 @@ void MainWindow::actionWidgetConnector()
 	connect(mActionWidget, SIGNAL(startLoading(QString)), this, SLOT(startLoading(QString)));
 	connect(mActionWidget, SIGNAL(stopLoading()), this, SLOT(stopLoading()));
 
-	connect(mActionWidget, SIGNAL(startSaveing(QString,int)), this, SLOT(startSaveing(QString,int)));
-	connect(mActionWidget, SIGNAL(stopSaveing()), this, SLOT(stopSaveing()));
+	connect(mActionWidget, SIGNAL(startSaving(QString,int)), this, SLOT(startSaving(QString,int)));
+	connect(mActionWidget, SIGNAL(stopSaving()), this, SLOT(stopSaving()));
 }
 
 void MainWindow::calibratorWidgetConnector()

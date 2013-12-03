@@ -6,6 +6,7 @@
 #include "actionWidget.h"
 #include "calibratorWidget.h"
 #include "deviseWidget.h"
+#include "graphicalWidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,8 +31,8 @@ protected slots:
 	void startLoading(const QString &fileName);
 	void stopLoading();
 
-	void startSaveing(const QString &fileName, const int &freq);
-	void stopSaveing();
+	void startSaving(const QString &fileName, const int &freq);
+	void stopSaving();
 
 	void startCalibrate();
 	void stopCalibrate();
@@ -46,7 +47,8 @@ private:
 	enum Widgets {
 		action = 2,
 		calibrator,
-		devise
+		devise,
+		graphical
 	};
 
 	void actionWidgetConnector();
@@ -62,6 +64,7 @@ private:
 	ActionWidget *mActionWidget;
 	CalibratorWidget *mCalibratorWidget;
 	DeviseWidget *mDeviseWidget;
+	GraphicalWidget *mGraphicalWidget;
 };
 
 #endif // MAINWINDOW_H
