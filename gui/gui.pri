@@ -5,7 +5,9 @@ HEADERS  += \
 	gui/deviseWidget.h \
     gui/calibratorScene.h \
     gui/calibrateRectItem.h \
-    gui/guiConsts.h
+    gui/guiConsts.h \
+    gui/plotWidget.h \
+    gui/graphicalWidget.h
 
 SOURCES += \
 	gui/mainwindow.cpp \
@@ -13,7 +15,9 @@ SOURCES += \
 	gui/calibratorWidget.cpp \
 	gui/deviseWidget.cpp \
     gui/calibratorScene.cpp \
-    gui/calibrateRectItem.cpp
+    gui/calibrateRectItem.cpp \
+    gui/plotWidget.cpp \
+    gui/graphicalWidget.cpp
 
 FORMS    += \
 	gui/mainwindow.ui \

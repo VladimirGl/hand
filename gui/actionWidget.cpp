@@ -37,7 +37,7 @@ void ActionWidget::dataEnd()
 	ui->isLoadedCheckBox->setChecked(false);
 }
 
-void ActionWidget::saveingEnd()
+void ActionWidget::savingEnd()
 {
 	ui->isSavedCheckBox->setChecked(false);
 }
@@ -68,12 +68,12 @@ void ActionWidget::startSave()
 
 	int freq = ui->freqLineEdit->text().toInt();
 
-	emit startSaveing(fileName, freq);
+	emit startSaving(fileName, freq);
 }
 
 void ActionWidget::stopSave()
 {
 	ui->isSavedCheckBox->setChecked(false);
 
-	emit stopSaveing();
+	emit stopSaving();
 }

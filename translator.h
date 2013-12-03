@@ -72,9 +72,9 @@ public:
 	/// Stops loading action and set current connection type = noConnection.
 	void stopLoadAction();
 
-	/// Starts saveing action to the file. Saves converted to hand data.
+	/// Starts saving action to the file. Saves converted to hand data.
 	void startSaveAction(const QString &fileName, const int &freq);
-	/// Stops saveing action and set current connection type = noConnection.
+	/// Stops saving action and set current connection type = noConnection.
 	void stopSaveAction();
 
 	/// Sets connection type = calibrate and start to calibrate glove.
