@@ -21,7 +21,7 @@ private slots:
 
 	void changedNumberOfSensor(const int &newSensor);
 
-	void chagedFilteredStatus(bool newStatus);
+	void changedFilteredStatus(bool newStatus);
 
 signals:
 

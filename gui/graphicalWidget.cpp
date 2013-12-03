@@ -14,7 +14,7 @@ GraphicalWidget::GraphicalWidget(const int &countOfSensors)
 					 this, SLOT(changedNumberOfSensor(const int &)));
 
 	filteredDataStatus = new QCheckBox("Filtered Data");
-	connect(filteredDataStatus, SIGNAL(clicked(bool)), this, SLOT(chagedFilteredStatus(bool)));
+	connect(filteredDataStatus, SIGNAL(clicked(bool)), this, SLOT(changedFilteredStatus(bool)));
 
 	QVBoxLayout *vLayout = new QVBoxLayout();
 	vLayout->addWidget(mCurrentSensor);
@@ -48,7 +48,7 @@ void GraphicalWidget::changedNumberOfSensor(const int &newSensor)
 	emit changedCurrentSensor(newSensor);
 }
 
-void GraphicalWidget::chagedFilteredStatus(bool newStatus)
+void GraphicalWidget::changedFilteredStatus(bool newStatus)
 {
 	mPlotWidget->setFilteredVisible(newStatus);
 }
