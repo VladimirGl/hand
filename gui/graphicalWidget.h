@@ -17,15 +17,13 @@ public:
 
 	void updateFilteredVisible(bool isVisible);
 
+	int getIndexOfCurrentSensor();
+
 private slots:
 
 	void changedNumberOfSensor(const int &newSensor);
 
 	void changedFilteredStatus(bool newStatus);
-
-signals:
-
-	void changedCurrentSensor(const int &newSensor);
 
 private:
 
@@ -34,6 +32,8 @@ private:
 	QComboBox *mCurrentSensor;
 
 	QCheckBox *filteredDataStatus;
+
+	int mIndexOfCurrentSensor;
 };
 
 #endif // GRAPHICALWIDGET_H

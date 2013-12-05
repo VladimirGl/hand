@@ -18,6 +18,7 @@ class GloveInterface;
 class HandInterface;
 class User;
 class GloveCalibrator;
+class KalmanFilter;
 
 enum ConnectionType {
 	noConnection = 0,
@@ -40,6 +41,8 @@ public:
 
 	/// Returns true, if the glove is connected.
 	bool isGloveConnected() const;
+	/// Return true, if the glove port is open.
+	bool isGloveDataSending() const;
 	/// Returns true, if the glove is connected.
 	bool isHandConnected() const;
 
@@ -50,6 +53,8 @@ public:
 
 	/// Returns an list of the last read data.
 	QList<int> sensorData() { return mSensorDatas; }
+	/// Returns an list of the last read and filtred data.
+	QList<int> filteredSensorData() {return mFiltredDatas; }
 	/// Returns an list of the last converted to hand data.
 	QList<int> convertedData() { return mConvertedDatas; }
 
@@ -85,6 +90,7 @@ public slots:
 
 protected slots:
 	void convertData();
+	void filterData();
 	void sendDataToCalibrator();
 
 signals:
@@ -106,6 +112,7 @@ private:
 
 	QList<int> mConvertedDatas;
 	QList<int> mSensorDatas;
+	QList<int> mFiltredDatas;
 
 	User *mUser;
 
@@ -115,6 +122,8 @@ private:
 
 	GloveInterface *mGloveInterface;
 	HandInterface *mHandInterface;
+
+	KalmanFilter *mKalmanFilter;
 };
 
 #endif // TRANSLATOR_H

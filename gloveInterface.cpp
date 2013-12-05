@@ -27,6 +27,11 @@ bool GloveInterface::isHardwareGloveSet()
 	return mGlove->isPortSet();
 }
 
+bool GloveInterface::isDataSending() const
+{
+	return mGlove->isDataSending();
+}
+
 void GloveInterface::startSendingDatas()
 {
 	if (isHardwareGloveSet()) {

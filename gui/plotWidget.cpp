@@ -7,13 +7,11 @@
 
 #include <QDebug>
 
-const int queueSize = 400;
-
 PlotWidget::PlotWidget() :
 	mOriginalCurve(new QwtPlotCurve),
 	mFilteredCurve(new QwtPlotCurve)
 {
-	for (int i = 0; i < queueSize; i++) {
+	for (int i = 0; i < Graphics::queuePlotSize; i++) {
 		mIterator.append(i);
 	}
 
@@ -21,8 +19,8 @@ PlotWidget::PlotWidget() :
 	this->setCanvasBackground(Qt::white);
 
 
-	setAxisMaxMajor(QwtPlot::yLeft, queueSize / 8);
-	setAxisMaxMajor(QwtPlot::xBottom, queueSize / 8);
+	setAxisMaxMajor(QwtPlot::yLeft, Graphics::queuePlotSize / 8);
+	setAxisMaxMajor(QwtPlot::xBottom, Graphics::queuePlotSize / 8);
 
 	mGrid = new QwtPlotGrid;
 	mGrid->setPen("#999999", 0.2);
@@ -48,7 +46,7 @@ PlotWidget::~PlotWidget()
 
 void PlotWidget::addOriginalPoint(const int &newPoint)
 {
-	if (mOriginalData.size() >= queueSize) {
+	if (mOriginalData.size() >= Graphics::queuePlotSize) {
 		mOriginalData.dequeue();
 	}
 
@@ -60,7 +58,7 @@ void PlotWidget::addOriginalPoint(const int &newPoint)
 
 void PlotWidget::addFilteredPoint(const int &newPoint)
 {
-	if (mFilteredData.size() >= queueSize) {
+	if (mFilteredData.size() >= Graphics::queuePlotSize) {
 		mFilteredData.dequeue();
 	}
 

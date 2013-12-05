@@ -1,34 +1,44 @@
 #include "kalmanFilter.h"
+#include "consts.h"
 
-KalmanFilter::KalmanFilter(qreal measuredNoise, qreal enviromentNoise,
-		qreal prevValueFactor, qreal measuredValueFactor)
-{
-	mMeasurementNoise = measuredNoise;
-	mEnviromentNoise = enviromentNoise;
-	mPrevValueFactor = prevValueFactor;
-	mMeasuredValueFactor = measuredValueFactor;
-}
-
-void KalmanFilter::setState(qreal state, qreal covariance)
+KalmanFilter::KalmanFilter(QList<int> state)
 {
 	mState = state;
-	mCovariance = covariance;
+
+	for (int i = 0; i < GloveConsts::numberOfSensors; i++)
+	{
+		mMeasurementNoise.prepend(KalmanConsts::measuredNoise);
+		mEnviromentNoise.prepend(KalmanConsts::enviromentNoise);
+		mPrevValueFactor.prepend(KalmanConsts::prevValueFactor);
+		mMeasuredValueFactor.prepend(KalmanConsts::measuredValueFactor);
+		mCovariance.prepend(KalmanConsts::covariance);
+	}
 }
 
-void KalmanFilter::correct(qreal data)
+void KalmanFilter::correct(QList<int> data)
 {
-	//prediction
-	mPredicateState = mPrevValueFactor * mState;
-	mPredicateCovaiance = mPrevValueFactor * mCovariance * mPrevValueFactor + mMeasurementNoise;
+	for (int i = 0; i < GloveConsts::numberOfSensors; i++)
+	{
+		//prediction
+		mPredicateState.removeAt(i);
+		mPredicateState.insert(i, mPrevValueFactor.at(i) * mState.at(i));
+		mPredicateCovaiance.removeAt(i);
+		mPredicateCovaiance.insert(i, mPrevValueFactor.at(i) * mCovariance.at(i) * mPrevValueFactor.at(i)
+				+ mMeasurementNoise.at(i));
 
-	//data correction
-	qreal kalmanCoeff = mMeasuredValueFactor * mPredicateCovaiance /
-			(mMeasuredValueFactor * mPredicateCovaiance * mMeasuredValueFactor + mEnviromentNoise);
-	mState = mPredicateState + kalmanCoeff * (data - mMeasuredValueFactor * mPredicateState);
-	mCovariance = (1 - kalmanCoeff * mMeasuredValueFactor) * mPredicateCovaiance;
+		//data correction
+		qreal kalmanCoeff = mMeasuredValueFactor.at(i) * mPredicateCovaiance.at(i) /
+				(mMeasuredValueFactor.at(i) * mPredicateCovaiance.at(i) * mMeasuredValueFactor.at(i)
+				 + mEnviromentNoise.at(i));
+		mState.removeAt(i);
+		mState.insert(i, (int)(mPredicateState.at(i) + kalmanCoeff * (data.at(i)
+						 - mMeasuredValueFactor.at(i) * mPredicateState.at(i))));
+		mCovariance.removeAt(i);
+		mCovariance.insert(i, (1 - kalmanCoeff * mMeasuredValueFactor.at(i)) * mPredicateCovaiance.at(i));
+	}
 }
 
-qreal KalmanFilter::state()
+QList<int> KalmanFilter::getState()
 {
 	return mState;
 }

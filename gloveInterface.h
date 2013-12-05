@@ -24,6 +24,8 @@ public:
 	void setHardwareGlove(const QString& portName);
 	/// Returns true if mGlove serial port set.
 	bool isHardwareGloveSet();
+	/// Return true, if the port is open.
+	bool isDataSending() const;
 
 	/// Calls the appropriate method of the Glove class.
 	void startSendingDatas();

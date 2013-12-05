@@ -7,6 +7,7 @@
 #include "user.h"
 #include "gloveCalibrator.h"
 #include "map.h"
+#include "kalmanFilter.h"
 
 #include "consts.h"
 
@@ -29,7 +30,10 @@ Translator::Translator() :
 
 	for (int i = 0; i < GloveConsts::numberOfSensors; i++) {
 		mSensorDatas.prepend(0);
+		mFiltredDatas.prepend(0);
 	}
+
+	mKalmanFilter = new KalmanFilter(mFiltredDatas);
 }
 
 Translator::~Translator()
@@ -51,6 +55,11 @@ void Translator::connectHand(const QString& portName)
 bool Translator::isGloveConnected() const
 {
 	return mGloveInterface->isHardwareGloveSet();
+}
+
+bool Translator::isGloveDataSending() const
+{
+	return mGloveInterface->isDataSending();
 }
 
 bool Translator::isHandConnected() const
@@ -232,6 +241,8 @@ void Translator::convertData()
 
 	saveSensorsData(mGloveInterface->gloveDatas());
 
+	filterData();
+
 	if (mConnectionType == calibrate) {
 		sendDataToCalibrator();
 		return;
@@ -243,16 +254,22 @@ void Translator::convertData()
 		QList<int> motorList = mUser->motorList(i);
 
 		for (int j = 0; j < motorList.size(); j++) {
-			mConvertedDatas[motorList.at(j)] = map(mSensorDatas[i], mUser->sensorMin(i), mUser->sensorMax(i));
+			mConvertedDatas[motorList.at(j)] = map(mFiltredDatas[i], mUser->sensorMin(i), mUser->sensorMax(i));
 		}
 	}
 
 	sendDataToHand();
 }
 
+void Translator::filterData()
+{
+	mKalmanFilter->correct(mSensorDatas);
+	mFiltredDatas = mKalmanFilter->getState();
+}
+
 void Translator::sendDataToCalibrator()
 {
-	mGloveCalibrator->writeData(mGloveInterface->gloveDatas());
+	mGloveCalibrator->writeData(mFiltredDatas);
 }
 
 void Translator::sendDataToHand()

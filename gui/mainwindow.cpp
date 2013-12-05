@@ -149,6 +149,22 @@ void MainWindow::updater()
 	{
 		break;
 	}
+	case graphical :
+	{
+		if (mTranslator->isGloveDataSending())
+		{
+			QList<int> gloveOriginalData = mTranslator->sensorData();
+			QList<int> gloveFiltredData = mTranslator->filteredSensorData();
+			int currentGraphicalSensor = mGraphicalWidget->getIndexOfCurrentSensor();
+
+			if (!gloveOriginalData.isEmpty() && !gloveFiltredData.isEmpty())
+			{
+				mGraphicalWidget->updateOriginalPoint(gloveOriginalData.at(currentGraphicalSensor));
+				mGraphicalWidget->updateFilteredPoint(gloveFiltredData.at(currentGraphicalSensor));
+			}
+		}
+		break;
+	}
 	}
 }
 
@@ -174,3 +190,4 @@ void MainWindow::deviseWidgetConnector()
 	connect(mDeviseWidget, SIGNAL(tryGloveConnect(QString)), this, SLOT(connectGlove(QString)));
 	connect(mDeviseWidget, SIGNAL(tryHandConnect(QString)), this, SLOT(connectHand(QString)));
 }
+

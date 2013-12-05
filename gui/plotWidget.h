@@ -5,6 +5,7 @@
 #include <QQueue>
 #include <QPointF>
 #include "qwt_plot.h"
+#include "guiConsts.h"
 
 class QwtPlotCurve;
 class QwtPlotGrid;

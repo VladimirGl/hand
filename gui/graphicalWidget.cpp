@@ -13,6 +13,8 @@ GraphicalWidget::GraphicalWidget(const int &countOfSensors)
 	connect(mCurrentSensor, SIGNAL(currentIndexChanged(const int &)),
 					 this, SLOT(changedNumberOfSensor(const int &)));
 
+	mIndexOfCurrentSensor = 0;
+
 	filteredDataStatus = new QCheckBox("Filtered Data");
 	connect(filteredDataStatus, SIGNAL(clicked(bool)), this, SLOT(changedFilteredStatus(bool)));
 
@@ -41,11 +43,16 @@ void GraphicalWidget::updateFilteredVisible(bool isVisible)
 	mPlotWidget->setFilteredVisible(isVisible);
 }
 
+int GraphicalWidget::getIndexOfCurrentSensor()
+{
+	return mIndexOfCurrentSensor;
+}
+
 void GraphicalWidget::changedNumberOfSensor(const int &newSensor)
 {
 	mPlotWidget->clear();
 
-	emit changedCurrentSensor(newSensor);
+	mIndexOfCurrentSensor = newSensor;
 }
 
 void GraphicalWidget::changedFilteredStatus(bool newStatus)

@@ -13,25 +13,25 @@
 class KalmanFilter
 {
 public:
-	KalmanFilter(qreal measuredNoise, qreal enviromentNoise, qreal prevValueFactor,
-			qreal measuredValueFactor);
-	/// Setts the original state of data and covariance of process.
-	void setState(qreal state, qreal covariance);
+	KalmanFilter(QList<int> state);
+
 	/// Update and correct data.
-	void correct(qreal data);
+	void correct(QList<int> data);
 
-	qreal state();
+	/// Returns QList of filtered data.
+	QList<int> getState();
+
 private:
-	qreal mPredicateState;
-	qreal mPredicateCovaiance;
+	QList<qreal> mPredicateState;
+	QList<qreal> mPredicateCovaiance;
 
-	qreal mPrevValueFactor;
-	qreal mMeasurementNoise;
-	qreal mMeasuredValueFactor;
-	qreal mEnviromentNoise;
+	QList<qreal> mPrevValueFactor;
+	QList<qreal> mMeasurementNoise;
+	QList<qreal> mMeasuredValueFactor;
+	QList<qreal> mEnviromentNoise;
 
-	qreal mState;
-	qreal mCovariance;
+	QList<int> mState;
+	QList<qreal> mCovariance;
 };
 
 #endif // KALMANFILTER_H
