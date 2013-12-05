@@ -29,4 +29,13 @@ const int header = 789123;
 const int tail = 234732036;
 }
 
+namespace KalmanConsts {
+const qreal covariance = 0.1;
+const qreal measuredNoise = 2;
+const qreal enviromentNoise = 15;
+const qreal prevValueFactor = 1;
+const qreal measuredValueFactor = 1;
+
+}
+
 #endif // CONSTS_H
